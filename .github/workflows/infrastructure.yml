@@ -5,12 +5,12 @@ on:
     branches:
       - main
     paths:
-      - 'infrastructure/**'
+      - 'Infrastructure/**'
   pull_request:
     branches:
       - main
     paths:
-      - 'infrastructure/**'
+      - 'Infrastructure/**'
   workflow_dispatch:
 
 env:
@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: infrastructure
+        working-directory: Infrastructure
     steps:
       - name: Check out code
         uses: actions/checkout@v2

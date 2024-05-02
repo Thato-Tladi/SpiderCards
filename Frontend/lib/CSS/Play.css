@@ -151,6 +151,20 @@ a {
     pointer-events: none; /* Prevents clicking on the link */
 }
 
+.timer-bar {
+    margin-top: -20%;
+    height: 10px;  /* Set the height of the timer bar */
+    width: 0%; /* Start width at 0% */
+    background-color: green; /* Start as green */
+    transition: background-color 0.3s ease-in-out; /* Transition for color change only */
+    position: fixed;
+    top: 50%;
+    left: 10%;
+}
+
+.timer-bar.red {
+    background-color: red; /* Change to red in the last 10 seconds */
+}
 
 
 

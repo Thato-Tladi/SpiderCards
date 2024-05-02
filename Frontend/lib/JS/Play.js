@@ -1,7 +1,9 @@
 let score = 0; // Initialize player's score
+let hasScoredThisRound = false; 
+let timerInterval;
 
 const spiders = [
-    { name: "Sydney Funnel-Web", description: "With highly toxic venom produced in large amounts, it is without a doubt the deadliest spider in Australia, and possibly the world.", venomous: true, image: "assets/spider1.jpg" },
+    { name: "Sydney Funnel-Web", description: "With highly toxic venom produced in large amounts, it is without a doubt the deadliest spider in Australia, and possibly the world.", venomous: false, image: "assets/spider1.jpg" },
     { name: "Garden Spider", description: "Common non-venomous spider known for its decorative webs.", venomous: true, image: "assets/spider2.jpg" },
     { name: "Sydney Funnel-Web", description: "With highly toxic venom produced in large amounts, it is without a doubt the deadliest spider in Australia, and possibly the world.", venomous: true, image: "assets/spider1.jpg" },
     { name: "Garden Spider", description: "Common non-venomous spider known for its decorative webs.", venomous: true, image: "assets/spider2.jpg" },
@@ -10,7 +12,50 @@ const spiders = [
 let currentSpiderIndex = 0;
 
 function initializeDisplay() {
+    resetTimer();
     showSpiders();
+    startTimer();
+}
+function startTimer() {
+    const timerBar = document.getElementById('timer-bar');
+    timerBar.style.width = '0%'; // Initialize the width to 0% for a new round
+    timerBar.classList.remove('red'); // Remove the red class if it was added previously
+    let startTime = Date.now();
+
+    timerInterval = setInterval(function() {
+        let elapsedTime = Date.now() - startTime;
+        let timeLeft = 30000 - elapsedTime;
+        let percentageWidth = ((30000 - timeLeft) / 30000) * 80; // Calculate width as a percentage of time passed
+
+        timerBar.style.width = `${percentageWidth}%`;
+
+        if (timeLeft <= 10000) {
+            timerBar.classList.add('red');
+        }
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            automaticCardFlip();
+        }
+    }, 1000);
+}
+
+function resetTimer() {
+    clearInterval(timerInterval); // Clear existing timer if any
+    hasScoredThisRound = false; // Reset the scoring flag
+}
+
+function automaticCardFlip() {
+    // Assume the first card is always venomous and the second is non-venomous
+    const nonVenomousIndex = currentSpiderIndex % 2 === 0 ? currentSpiderIndex + 1 : currentSpiderIndex;
+    const cardToFlip = document.querySelectorAll('.card')[nonVenomousIndex];
+
+    if (!hasScoredThisRound) {
+        score -= 100; // Deduct points automatically
+        updateScoreDisplay();
+        displayMessage('Time up! -100 points', true);
+        flipCard(cardToFlip);
+    }
 }
 
 function showSpiders() {
@@ -44,7 +89,9 @@ function showNextPair() {
     if (currentSpiderIndex >= spiders.length) {
         currentSpiderIndex = 0; // Restart or handle as needed
     }
+    resetTimer(); // Ensure the old timer is stopped and reset visually
     showSpiders();
+    startTimer(); 
 }
 
 function updateNavigation() {
@@ -55,6 +102,10 @@ function updateNavigation() {
 function flipCard(element) {
     var card = element;
     var card2 = element.nextElementSibling;
+
+        // Stop the timer when a card is selected
+    clearInterval(timerInterval);
+    const timerBar = document.getElementById('timer-bar');
     
     // Flipping the original card to show the backside
     card.style.transform = 'rotateY(180deg)';
@@ -78,15 +129,23 @@ function flipCard(element) {
       const spiderIndex = [...document.querySelectorAll('.card')].indexOf(element);
       const spider = spiders[spiderIndex];
       console.log(spiders[spiderIndex]);
-      console.log("score is "+score);
+      
   
-      if (spider.venomous) {
-        score -= 100;
-        displayMessage('Kiss of Death -100', true);
-    } else {
-        score += 100;
-        displayMessage('You Get to Live Another Round +100', false);
+      if (!hasScoredThisRound) {
+        // Update the score only if it hasn't been updated this round
+        if (spider.venomous) {
+            score -= 100;
+            displayMessage('Kiss of Death -100', true);
+        } else {
+            score += 100;
+            displayMessage('You Get to Live Another Round +100', false);
+        }
+        
+        hasScoredThisRound = true; // Set the flag indicating score has been updated
+        updateScoreDisplay();
     }
+
+    console.log("score is "+score);
 
     // Update the displayed score
     updateScoreDisplay();
@@ -135,4 +194,5 @@ function flipCard(element) {
     window.onload = function() {
         initializeDisplay();
         updateScoreDisplay(); // Initial score update
+        startRound();
     }

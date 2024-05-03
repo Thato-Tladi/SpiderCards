@@ -6,11 +6,6 @@ on:
       - main
     paths:
       - 'Infrastructure/**'
-  pull_request:
-    branches:
-      - main
-    paths:
-      - 'Infrastructure/**'
   workflow_dispatch:
 
 env:

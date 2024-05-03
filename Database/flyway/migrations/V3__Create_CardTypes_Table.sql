@@ -1,6 +1,3 @@
-USE spidercards;
-GO
-
 -- NOTE: the id here is purposefulyl being manually set so we can always know what it is ()
 CREATE TABLE SpiderCardsSchema.CardTypes
 (

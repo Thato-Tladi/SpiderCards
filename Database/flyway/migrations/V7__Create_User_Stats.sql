@@ -1,6 +1,3 @@
-USE spidercards;
-GO
-
 CREATE TABLE SpiderCardsSchema.UserStats
 (
     user_stats_id INT PRIMARY KEY IDENTITY(1,1),

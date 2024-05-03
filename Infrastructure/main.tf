@@ -211,8 +211,9 @@ resource "aws_elastic_beanstalk_environment" "spidercards-elastic-beanstalk-env"
   depends_on = [aws_security_group.spidercards-instance-sg, aws_security_group.database_sg]
 }
 
-#S3 bucket to host static files/frontend site
-resource "aws_s3_bucket" "frontend" {
+#Setting up resources for S3 static wbesite
+# S3 bucket for frontend
+resource "aws_s3_bucket" "spidercards_frontend" {
   bucket = "spidercards-frontend-${formatdate("YYYYMMDD", timestamp())}"
 
   tags = {
@@ -221,30 +222,42 @@ resource "aws_s3_bucket" "frontend" {
   }
 }
 
-resource "aws_s3_bucket_public_access_block" "frontend_public_access" {
-  bucket = aws_s3_bucket.frontend.id
+# Enabling versioning on it
+resource "aws_s3_bucket_versioning" "spidercards_versioning" {
+  bucket = aws_s3_bucket.spidercards_frontend.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+# Configuring it for static website hosting
+resource "aws_s3_bucket_website_configuration" "spidercards_website_config" {
+  bucket = aws_s3_bucket.spidercards_frontend.id
+
+  index_document {
+    suffix = "index.html"
+  }
+
+  error_document {
+    key = "404.html"
+  }
+}
+
+# Managing access settings
+resource "aws_s3_bucket_public_access_block" "spidercards_access_block" {
+  bucket = aws_s3_bucket.spidercards_frontend.id
 
   block_public_acls   = false
-  ignore_public_acls  = false
   block_public_policy = false
+  ignore_public_acls  = false
   restrict_public_buckets = false
 }
 
-resource "aws_s3_bucket_policy" "frontend_policy" {
-  bucket = aws_s3_bucket.frontend.bucket
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action    = "s3:GetObject",
-        Effect    = "Allow",
-        Resource  = "${aws_s3_bucket.frontend.arn}/*",
-        Principal = "*"
-      },
-    ]
-  })
+output "website_url" {
+  description = "The website URL of the S3 bucket"
+  value       = "http://${aws_s3_bucket.spidercards_frontend.bucket_regional_domain_name}"
 }
-
 
 
 #S3 Bucket to store images

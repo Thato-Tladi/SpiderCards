@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+ # mssql:
+    #image: mcr.microsoft.com/mssql/server:2022-latest
+    #environment:
+     # SA_PASSWORD: "Passw0rd!1"
+     # ACCEPT_EULA: "Y"
+    #ports:
+    #  - "1433:1433"
+   # volumes:
+  #    - mssql_data:/var/opt/mssql
+
+  flyway:
+    image: flyway/flyway
+    environment:
+      FLYWAY_URL: "${FLYWAY_URL}"
+      FLYWAY_USER: "${FLYWAY_USER}"
+      FLYWAY_PASSWORD: "${FLYWAY_PASSWORD}"
+    command: 
+      - repair
+      - migrate
+    volumes:
+      - ./flyway/conf/flyway.conf:/flyway/conf/flyway.conf
+      - ./flyway/migrations:/flyway/migrations
+
+#volumes:
+ #  mssql_data:

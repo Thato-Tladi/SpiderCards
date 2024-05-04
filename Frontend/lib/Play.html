@@ -12,29 +12,25 @@
         <h1>SPIDERCARDS</h1>
         <img src="assets/profile.png" alt="Profile Icon" class="profile" onclick="toggleBubble()"> 
         <section class="profile-bubble" style="display: none;">
-            <a href="user_profile.html">
-                <p id="username">Username: <span class="user-info">User123</span></p>
-            </a>
-            <a href="score.html">
-                <p id="score">Score: <span class="user-info">1500</span></p>
-            </a>
-            <a href="games_played.html">
-                <p id="games-played">Games Played: <span class="user-info">75</span></p>
-            </a>
+            <p id="username">Username: <span class="user-info">User123</span></p>
+            <p id="score">Score: <span class="user-info">1500</span></p>
+            <p id="games-played">Games Played: <span class="user-info">75</span></p>
         </section>
-        
     </nav>
 
     <main>
         <h2 class="animated-text">PICK YOUR BITE</h2>
+        <div id="timer-bar" class="timer-bar"></div>
 
-        <section class="card-container">
-            <section class="card" onclick="flipCard(this)">
+        <!-- <section id="score" class="score-display">Score: 0</section> -->
+
+        <section class="card-container" id="spider-cards">
+            <!-- <section class="card" onclick="flipCard(this)">
                 <img src="assets/spider1.jpg" alt="Spider 1">
             </section>
             <section class="card cardAnswer" style="display: none;">
                 <p class="card-details">
-                    <div class="cardAnswer-header">Sydney funnel-web </div><br>
+                    <section class="cardAnswer-header">Sydney funnel-web </section><br>
                     With highly toxic venom produced in large amounts it, is without a doubt the deadliest spider in Australia, and possibly the world.</p>
             </section>
             <section class="card" onclick="flipCard(this)">
@@ -44,14 +40,16 @@
                 <p class="card-details">
                     Sydney funnel-web <br>
                     With highly toxic venom produced in large amounts it, is without a doubt the deadliest spider in Australia, and possibly the world.</p>
-            </section>
+            </section> -->
         </section>
-        <div class="navigation">
-            <button class="next"><img src="assets/next.png" alt="next"></button>
-        </div>
-        <div class="round-number">
+        <section class="navigation">
+            <button class="next" onclick="showNextPair()"><a href="#" class="next round disabled" onclick="return false;">Next &raquo;</a>
+            </button>
+        </section>
+        <section class="round-number">
             <span class="page-number">1 / 5</span>
-        </div>
+        </section>
+       
     </main>
     <footer>
         <span class="help icon"></span>

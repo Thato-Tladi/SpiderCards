@@ -1,3 +1,6 @@
-document.querySelector('.go-button').addEventListener('click', function() {
-    window.location.href = 'Play.html';
-});
+
+function myFunction() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+  }
+  

@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spider Cards</title>
     <link rel="stylesheet" href="CSS/Init.css">
+    <script src="JS/SpiderInit.js"></script>
 </head>
 <body>
-    <div class="container">
+    <section class="container">
         <nav class="navbar">
             <img src="assets/logo.png" alt="Spider Icon" class="logo">
-            <h1>SPIDERCARDS</h1>
-            <img src="assets/profile.png" alt="Profile Icon" class="profile">
+            <h1><b>SPIDERCARDS</b></h1>
+            <section class="popup" onclick="myFunction()"><img src="assets/profile.png" alt="Profile Icon" class="profile">
+                <span class="popuptext" id="myPopup">Testing IDE...</span>
+            </section>
         </nav>
     
         <h2 class="animated-text">READY?</h2>
@@ -27,7 +30,9 @@
             <section class="card card3" style="background-image: url('assets/intiCard.png'); background-size: cover;">
             </section>
         </section>
+        <section class="go-container">
         <img src="assets/start.png" alt="Go" class="go-image" onclick="window.location.href='Play.html'">
-    </div>
+        </section>
+    </section>
 </body>
 </html>

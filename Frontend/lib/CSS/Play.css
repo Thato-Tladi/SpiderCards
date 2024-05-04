@@ -110,6 +110,74 @@ main {
     margin-left: 80%;
 }
 
+a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #ddd;
+  }
+  
+  a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  .next {
+    color: rgb(174, 38, 38);
+  }
+  
+  .round {
+    border-radius: 50%;
+  }
+
+  .next.round {
+    padding: 8px 15px;
+    background-color: #4CAF50; /* Lighter shade for the enabled state */
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.next.round.disabled {
+    background-color: #2a4d32; /* Darker shade for the disabled state */
+    cursor: default;
+    opacity: 0.5;
+    pointer-events: none; /* Prevents clicking on the link */
+}
+
+.timer-bar {
+    margin-top: -20%;
+    height: 10px;  /* Set the height of the timer bar */
+    width: 0%; /* Start width at 0% */
+    background-color: green; /* Start as green */
+    transition: background-color 0.3s ease-in-out; /* Transition for color change only */
+    position: fixed;
+    top: 50%;
+    left: 10%;
+}
+
+.timer-bar.red {
+    background-color: red; /* Change to red in the last 10 seconds */
+}
+
+
+
+button:disabled {
+    cursor: default;
+    background-color: #eee; /* Light grey when disabled */
+}
+
+button:enabled {
+    background-color: #000; /* Black when enabled */
+}
+
+
 .navigation {
     display: flex;
     justify-content: center;

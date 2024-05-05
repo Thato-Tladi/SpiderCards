@@ -105,7 +105,6 @@ function flipCard(element) {
 
         // Stop the timer when a card is selected
     clearInterval(timerInterval);
-    const timerBar = document.getElementById('timer-bar');
     
     // Flipping the original card to show the backside
     card.style.transform = 'rotateY(180deg)';
@@ -153,7 +152,7 @@ function flipCard(element) {
       // Function to handle message display
       function displayMessage(text, isVenomous) {
           const message = document.createElement('div');
-          message.style.position = 'absolute';
+          message.style.position = 'fixed';
           message.style.top = '10%';
           message.style.left = '0';
           message.style.width = '100%';

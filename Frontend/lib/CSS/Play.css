@@ -58,6 +58,7 @@ h1 {
 
 main {
     text-align: center;
+    position: relative;
 }
 
 .animated-text {
@@ -152,16 +153,19 @@ a {
     pointer-events: none; /* Prevents clicking on the link */
 }
 
+
 .timer-bar {
-    margin-top: -20%;
-    height: 10px;  /* Set the height of the timer bar */
-    width: 0%; /* Start width at 0% */
-    background-color: green; /* Start as green */
-    transition: background-color 0.3s ease-in-out; /* Transition for color change only */
     position: absolute;
-    top: 50%;
+    top: 20px;
     left: 10%;
+    min-height: 2%;
+    width: 0%;
+    background-color: green;
+    transition: background-color 0.3s ease-in-out;
+ 
 }
+
+
 
 .timer-bar.red {
     background-color: red; /* Change to red in the last 10 seconds */
@@ -189,28 +193,9 @@ button:enabled {
 .navigation button {
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: 4vh;
     cursor: pointer;
 }
-
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    padding: 10px;
-    background-color: #fff;
-}
-
-.footer .help.icon {
-    width: 24px;
-    height: 24px;
-    background-image: url('help-icon.png');
-    background-size: cover;
-}
-
-
-/* css for navbar */
 
 .navbar {
     display: flex;
@@ -221,7 +206,7 @@ footer {
 }
 
 .logo, .profile {
-    height: 2rem; /* Adjust based on your preference */
+    height: 2rem;
 }
 
 h1 {
@@ -254,6 +239,9 @@ h1 {
     font-size: 3vw; /* Adjust font size based on the width of the viewport */
     color: red;
 }
+h2 {
+    font-size: 2vw; /* Adjust font size based on the width of the viewport */
+}
 
 /* Responsive profile and navigation elements */
 .profile, .navigation button {
@@ -285,16 +273,4 @@ h1 {
     .card, .cardAnswer {
         flex: 1 1 90%; /* On smaller screens, make each card take nearly full width */
     }
-}
-
-
-
-/* Responsive footer */
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    padding: 10px;
-    text-align: center;
-    background-color: #fff;
 }

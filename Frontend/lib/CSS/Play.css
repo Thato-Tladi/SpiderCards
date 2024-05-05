@@ -155,10 +155,9 @@ a {
 
 
 .timer-bar {
-    position: absolute;
-    top: 20px;
+    position: fixed;
     left: 10%;
-    min-height: 2%;
+    min-height: 1vh;
     width: 0%;
     background-color: green;
     transition: background-color 0.3s ease-in-out;

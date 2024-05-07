@@ -1,7 +1,3 @@
-document.getElementById('startGameButton').addEventListener('click', function() {
-    alert('The game is starting!');
-});
-
 function updateLeaderboard() {
     const tbody = document.querySelector('#leaderboard tbody');
     tbody.innerHTML = ''; // Clear current entries

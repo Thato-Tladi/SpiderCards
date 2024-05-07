@@ -29,7 +29,7 @@ main {
     margin-top: 1em;
 }
 
-#startGameButton {
+#actionButton {
     background-color: red;
     border: none;
     padding: 1em 2em;

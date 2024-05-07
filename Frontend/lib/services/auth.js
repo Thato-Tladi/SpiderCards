@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
   const config = {
-      domain: "your-domain.auth0.com",
-      client_id: "your-client-id",
-      redirect_uri: "http://your-redirect-uri",
-      audience: "your-audience",
-      scope: "openid profile email",
-      nonce: "unique-nonce"
-  };
+    domain: "",
+    client_id: "",
+    redirect_uri: "",
+    audience: "",
+    scope: "openid profile email",
+    nonce: "some_nonce"
+};
 
   function checkAuth() {
       const accessToken = localStorage.getItem('access_token');

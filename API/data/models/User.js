@@ -23,11 +23,12 @@ module.exports = (sequelize) => {
       },
       created_at: {
         type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
+        allowNull: false,
+        defaultValue: sequelize.literal('GETDATE()'),
       },
     },
     {
-      schema: 'SpiderCards',
+      schema: 'SpiderCardsSchema',
       tableName: 'Users',
       timestamps: false,
     }

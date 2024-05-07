@@ -1,5 +1,4 @@
-const { Card, GameSession, UserStats } = require('../models');
-const { Op, sequelize } = require('sequelize');
+const { Card, GameSession, UserStats, sequelize } = require('../models');
 
 const startGameSession = async (user_id) => {
   return await GameSession.create({
@@ -17,15 +16,34 @@ const findGameSessionById = async (sessionId) => {
 const updateGameSession = async (sessionId, updates) => {
   return await GameSession.update(updates, { where: { session_id: sessionId } });
 };
-
+/*
 const getRandomCards = async (count, typeId) => {
   return await Card.findAll({
     where: {
       type_id: typeId
     },
-   // order: sequelize.random(),
+    order: sequelize.literal('NEWID()'),
     limit: count
   });
+};*/
+
+
+const getRandomCards = async () => {
+  const venomousCard = await Card.findOne({
+    where: { type_id: 1 }, // Assume 1 is venomous type
+    order: sequelize.literal('NEWID()')
+  });
+
+  const nonVenomousCard = await Card.findOne({
+    where: { type_id: 2 }, // Assume 2 is non-venomous type
+    order: sequelize.literal('NEWID()')
+  });
+
+  return [venomousCard, nonVenomousCard];
+};
+
+module.exports = {
+  getRandomCards
 };
 
 const recordUserGameHistory = async (userId, score) => {

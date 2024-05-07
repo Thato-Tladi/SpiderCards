@@ -41,7 +41,7 @@ module.exports = (sequelize) => {
           model: 'CardTypes',
           key: 'type_id'
         }
-      }
+      },
     },
     {
       schema: 'SpiderCardsSchema',

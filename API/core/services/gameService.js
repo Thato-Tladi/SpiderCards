@@ -75,10 +75,10 @@ const submitCardChoice = async (sessionId, chosenCardId, isTimeout = false) => {
     };
   };
 
-  const endGameSession = async (sessionId, score) => {
+  const endGameSession = async (sessionId) => {
     const session = await validateActiveSession(sessionId);
-    await gameRepository.updateGameSession(sessionId, { end_time: new Date(), score });
-    await gameRepository.recordUserGameHistory(session.user_id, score);
+    await gameRepository.updateGameSession(sessionId, { end_time: new Date() });
+    await gameRepository.recordUserGameHistory(session.user_id, 0);
 
     return { success: true };
   };
@@ -86,12 +86,6 @@ const submitCardChoice = async (sessionId, chosenCardId, isTimeout = false) => {
 const getLeaderboard = async (limit) => {
   return await gameRepository.getLeaderboard(limit);
 };
-
-const getUserStatistics = async (user_sub) => {
-    const userId = await userRepository.findUserIdBySub(user_sub);
-    return await gameRepository.getUserStatistics(userId);
-};
-
 
 const getSessionInfo = async (sessionId) => {
     const session = await gameRepository.findGameSessionById(sessionId);
@@ -107,6 +101,5 @@ module.exports = {
   submitCardChoice,
   endGameSession,
   getLeaderboard,
-  getUserStatistics,
   getSessionInfo
 };

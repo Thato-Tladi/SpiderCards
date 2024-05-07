@@ -4,6 +4,7 @@ const corsMiddleware = require('./core/middleware/corsMiddleware');
 const { sequelize } = require('./data/models');
 const authRoutes = require('./core/routes/authRoutes');
 const gameRoutes = require('./core/routes/gameRoutes');
+const userRoutes = require('./core/routes/userRoutes');
 const { startIdleSessionChecker } = require('./core/jobs/idleSessionChecker');
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.json());
 
 app.use('/api', authRoutes);
 app.use('/api/game', gameRoutes);
+app.use('/api/user', userRoutes);
 
 sequelize.authenticate()
   .then(() => console.log('Database connected...'))

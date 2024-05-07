@@ -19,12 +19,12 @@ const updateGameSession = async (sessionId, updates) => {
 
 const getRandomCards = async () => {
   const venomousCard = await Card.findOne({
-    where: { type_id: 1 }, // Assume 1 is venomous type
+    where: { type_id: 1 },
     order: sequelize.literal('NEWID()')
   });
 
   const nonVenomousCard = await Card.findOne({
-    where: { type_id: 2 }, // Assume 2 is non-venomous type
+    where: { type_id: 2 },
     order: sequelize.literal('NEWID()')
   });
 
@@ -53,9 +53,6 @@ const getLeaderboard = async (limit = 10) => {
   });
 };
 
-const getUserStatistics = async (userId) => {
-  return await UserStats.findOne({ where: { user_id: userId } });
-};
 
 module.exports = {
   startGameSession,
@@ -63,6 +60,5 @@ module.exports = {
   updateGameSession,
   getRandomCards,
   recordUserGameHistory,
-  getLeaderboard,
-  getUserStatistics,
+  getLeaderboard
 };

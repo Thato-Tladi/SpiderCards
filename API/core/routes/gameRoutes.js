@@ -10,5 +10,6 @@ router.post('/session/:sessionId/choose', checkJwt, gameController.submitCardCho
 router.post('/session/:sessionId/end', checkJwt, gameController.endGameSession);
 router.get('/leaderboard', gameController.getLeaderboard);
 router.get('/user/stats', checkJwt, gameController.getUserStatistics);
+router.get('/session/:sessionId/info', checkJwt, gameController.getSessionInfo);
 
 module.exports = router;

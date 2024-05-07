@@ -81,11 +81,24 @@ const getUserStatistics = async (req, res) => {
         }
   };
 
+  const getSessionInfo = async (req, res) => {
+    try {
+      const sessionId = req.params.sessionId;
+      const session = await gameService.getSessionInfo(sessionId);
+
+      res.json(session);
+    } catch (error) {
+      console.error('Error in getSessionInfo:', error);
+      res.status(500).json({ message: 'Failed to retrieve session info', error: error.message });
+    }
+  };
+
   module.exports = {
     startGameSession,
     getNextCardPair,
     submitCardChoice,
     endGameSession,
     getLeaderboard,
-    getUserStatistics
+    getUserStatistics,
+    getSessionInfo
   };

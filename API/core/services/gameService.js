@@ -13,61 +13,59 @@ const startGameSession = async (auth0_sub) => {
 
     const session = await gameRepository.startGameSession(user_id);
 
-    // Retrieve venomous and non-venomous cards
-    const venomousCards = await gameRepository.getRandomCards(10, 1);
-    const nonVenomousCards = await gameRepository.getRandomCards(10, 2);
-
     return {
-      session,
-      cards: [
-        ...venomousCards.map(card => ({ ...card.dataValues, is_venomous: true })),
-        ...nonVenomousCards.map(card => ({ ...card.dataValues, is_venomous: false }))
-      ]
+      session
     };
   };
 
-const getNextCardPair = async (sessionId) => {
-    const session = await validateActiveSession(sessionId);
-  
-    if (session.current_round >= MAX_ROUNDS) {
-      session.end_time = new Date();
-      await gameRepository.updateGameSession(sessionId, { end_time: session.end_time });
-      await gameRepository.recordUserGameHistory(session.user_id, session.score);
-      throw new Error('The game session is over.');
-    }
-  
-    const cards = await gameRepository.getRandomCards();
-  
-    return { cards, current_round: session.current_round + 1 };
-  };
-  
+  const getNextCardPair = async (sessionId) => {
+  const session = await validateActiveSession(sessionId);
+
+  if (session.current_round == MAX_ROUNDS) {
+    session.end_time = new Date();
+    await gameRepository.updateGameSession(sessionId, { end_time: session.end_time });
+    await gameRepository.recordUserGameHistory(session.user_id, session.score);
+    throw new Error('The game session is over.');
+  }
+
+  const cards = await gameRepository.getRandomCards();
+
+  const currentRound = session.current_round + 1;
+
+  await gameRepository.updateGameSession(sessionId, { current_round: currentRound });
+
+  return { cards, current_round: currentRound };
+};
 
 const submitCardChoice = async (sessionId, chosenCardId, isTimeout = false) => {
     const session = await validateActiveSession(sessionId);
-
+  
     let scoreChange = 0;
     const card = await Card.findByPk(chosenCardId);
-    const correctChoice = card && card.type_id === 2; // Assuming type_id 2 is non-venomous
-
+    const correctChoice = card && card.type_id === 2;
+  
     if (isTimeout) {
-      scoreChange = -100; // Auto-lose points if timed out
+      scoreChange = -100;
     } else if (correctChoice) {
       scoreChange = 100;
     } else {
       scoreChange = -100;
     }
 
-    session.score += scoreChange;
-    session.current_round += 1;
-
-    const finalRound = session.current_round >= MAX_ROUNDS;
+    const newScore = session.score + scoreChange;
+    const newRound = session.current_round + 1;
+    const finalRound = newRound > MAX_ROUNDS;
 
     if (finalRound) {
       session.end_time = new Date();
-      await gameRepository.recordUserGameHistory(session.user_id, session.score);
+      await gameRepository.recordUserGameHistory(session.user_id, newScore);
     }
 
-    await gameRepository.updateGameSession(sessionId, { score: session.score, current_round: session.current_round });
+    await gameRepository.updateGameSession(sessionId, {
+        score: newScore,
+        current_round: newRound-1,
+         end_time: finalRound ? session.end_time : null
+        });
 
     return {
       correct: !isTimeout && correctChoice,
@@ -94,11 +92,21 @@ const getUserStatistics = async (user_sub) => {
     return await gameRepository.getUserStatistics(userId);
 };
 
+
+const getSessionInfo = async (sessionId) => {
+    const session = await gameRepository.findGameSessionById(sessionId);
+    if (!session) {
+      throw new Error('Session does not exist');
+    }
+    return session;
+  };
+
 module.exports = {
   startGameSession,
   getNextCardPair,
   submitCardChoice,
   endGameSession,
   getLeaderboard,
-  getUserStatistics
+  getUserStatistics,
+  getSessionInfo
 };

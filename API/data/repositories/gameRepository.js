@@ -5,7 +5,7 @@ const startGameSession = async (user_id) => {
     user_id,
     start_time: new Date(),
     score: 0,
-    current_round: 1
+    current_round: 0
   });
 };
 
@@ -16,17 +16,6 @@ const findGameSessionById = async (sessionId) => {
 const updateGameSession = async (sessionId, updates) => {
   return await GameSession.update(updates, { where: { session_id: sessionId } });
 };
-/*
-const getRandomCards = async (count, typeId) => {
-  return await Card.findAll({
-    where: {
-      type_id: typeId
-    },
-    order: sequelize.literal('NEWID()'),
-    limit: count
-  });
-};*/
-
 
 const getRandomCards = async () => {
   const venomousCard = await Card.findOne({
@@ -57,8 +46,9 @@ const recordUserGameHistory = async (userId, score) => {
 };
 
 const getLeaderboard = async (limit = 10) => {
-  return await GameSession.findAll({
-    order: [['score', 'DESC']],
+  return await UserStats.findAll({
+    attributes: ['user_id', 'total_score'],
+    order: [['total_score', 'DESC']],
     limit
   });
 };
@@ -74,5 +64,5 @@ module.exports = {
   getRandomCards,
   recordUserGameHistory,
   getLeaderboard,
-  getUserStatistics
+  getUserStatistics,
 };

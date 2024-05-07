@@ -4,8 +4,11 @@ const corsMiddleware = require('./core/middleware/corsMiddleware');
 const { sequelize } = require('./data/models');
 const authRoutes = require('./core/routes/authRoutes');
 const gameRoutes = require('./core/routes/gameRoutes');
+const { startIdleSessionChecker } = require('./core/jobs/idleSessionChecker');
 
 const app = express();
+
+startIdleSessionChecker(5);
 
 app.use(corsMiddleware);
 app.use(express.json());

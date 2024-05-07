@@ -1,4 +1,4 @@
 module.exports = {
-    MAX_ROUNDS: 4,
-    ROUND_TIMEOUT: 60 // In seconds
+    MAX_ROUNDS: 5,
+    ROUND_TIMEOUT: 60 * 60 //In seconds
   };

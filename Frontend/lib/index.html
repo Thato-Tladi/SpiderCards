@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spider Game</title>
-    <link rel="stylesheet" href="CSS/home.css">
+    <link rel="stylesheet" href="CSS/index.css">
 </head>
 <body>
-    <div class="container">
-      <nav class="navbar">
+    <nav class="navbar">
         <img src="assets/logo.png" alt="Spider Icon" class="logo">
         <h1>SPIDERCARDS</h1>
         <img src="assets/profile.png" alt="Profile Icon" class="profile" onclick="toggleBubble()"> 
@@ -18,13 +17,14 @@
             <p id="games-played">Games Played: <span class="user-info">75</span></p>
         </section>
     </nav>
+    <div class="container">
         <header>
             <h1>Welcome to SpiderCards</h1>
         </header>
         <main>
-            <button id="startGameButton">Spider Init</button>
+            <button id="actionButton">Login</button>
             <div id="leaderboard">
-              <h2>Leaderboard</h2>
+              <h2>Spider Avengers</h2>
               <table>
                   <thead>
                       <tr>
@@ -40,6 +40,6 @@
           
         </main>
     </div>
-    <script src="js/home.js"></script>
+    <script src="services/auth.js"></script>
 </body>
 </html>

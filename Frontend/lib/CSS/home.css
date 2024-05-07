@@ -1,0 +1,109 @@
+
+body, html {
+    margin: 0;
+    padding: 0;
+    background-image: url('../assets/background.png');
+    background-size: 100% auto;
+    background-position: center;
+    min-height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 3rem; /* Responsive font size */
+    text-align: center;
+}
+
+main {
+    width: 80%; /* Taking up 80% of the container width */
+    margin-top: 1em;
+}
+
+#startGameButton {
+    background-color: red;
+    border: none;
+    padding: 1em 2em;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+    border-radius: 0.5em;
+    display: block; /* Allows for centering */
+    margin: 0 auto; /* Center button in the container */
+    margin-top: 20vh;
+}
+
+#leaderboard {
+    
+    margin-top: 20vh;
+    background:gainsboro; /* Semi-transparent background */
+    border-radius: 0.5em;
+    padding: 1em;
+    width: 90%;
+    color: Black; /* Ensuring text is white */
+    text-align: center; /* Center-align text in table cells */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: transparent; /* Table background transparency */
+}
+
+th, td {
+    border: 1px solid #ffffff;
+    text-align: center; /* Center-align text in table cells */
+    padding: 0.5em; /* Spacing inside cells */
+    color: green; /* Green text for better readability and theme matching */
+    font-size: 1.2rem; /* Larger text for better visibility */
+}
+
+th {
+    color: black; /* Red color for header to differentiate and add to theme */
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 1rem 2rem;
+}
+
+.logo, .profile {
+    height: 2rem; 
+}
+
+h1 {
+    color: rgb(174, 38, 38);
+    font-family: Arial, sans-serif;
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    margin: 50px; 
+    font-size: 28px;
+}
+
+
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    #startGameButton {
+        font-size: 1rem;
+        padding: 0.8em 1.6em;
+    }
+
+    th, td {
+        padding: 0.4em;
+    }
+}

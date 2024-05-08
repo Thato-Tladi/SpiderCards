@@ -22,10 +22,15 @@ jobs:
         with:
           node-version: 18
 
+      - name: Change to API directory
+        run: cd API
+
       - name: Install Dependencies
+        working-directory: API
         run: npm ci
 
       - name: Build Project
+        working-directory: API
         run: npm run build
 
       - name: Configure AWS credentials
@@ -36,6 +41,7 @@ jobs:
           aws-region: eu-west-1
 
       - name: Deploy to Elastic Beanstalk
+        working-directory: API
         env:
           PORT: ${{ secrets.PORT }}
           ISSUER: ${{ secrets.ISSUER }}

@@ -42,12 +42,6 @@ jobs:
       - name: List migrations folder contents
         run: ls -l Database/flyway/migrations
 
-      - name: Run Flyway Migration
-        run: |
-          flyway -user="${{ secrets.DB_USERNAME }}" -password="${{ secrets.DB_PASSWORD }}" -url="${{ secrets.FLYWAY_URL }}" -locations="filesystem:${GITHUB_WORKSPACE}/Database/flyway/migrations" migrate
-
-          
-
       - name: Run Flyway Migrations
         run: |
           flyway -user="${{ secrets.DB_USERNAME }}" -password="${{ secrets.DB_PASSWORD }}" -url="${{ secrets.FLYWAY_URL }}" -locations="filesystem:Database/flyway/migrations" migrate

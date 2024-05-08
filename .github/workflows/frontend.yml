@@ -5,16 +5,16 @@ on:
     branches:
       - main
     paths:
-      - "Frontend/**"
-  workflow_dispatch: {}
+      - 'Frontend/**'
+  workflow_dispatch:
 
 jobs:
   deploy:
-    name: Deploy Frontend
+    name: Deploy Frontend to S3
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out code
+      - name: Checkout Code
         uses: actions/checkout@v2
 
       - name: Configure AWS Credentials
@@ -22,20 +22,16 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: "eu-west-1"
+          aws-region: 'eu-west-1'
 
-      - name: Get S3 bucket name
-        id: get-bucket
+      - name: Verify S3 Bucket Policy
         run: |
-          BUCKET_NAME=$(terraform output -raw website_url | awk -F'/' '{print $3}')
-          echo "::set-output name=bucket_name::$BUCKET_NAME"
-
-      - name: Apply Public Bucket Policy
-        run: |
-          POLICY=$(aws s3api get-bucket-policy --bucket ${{ steps.get-bucket.outputs.bucket_name }} --query Policy --output text 2>/dev/null || echo "")
-          if [ -z "$POLICY" ]; then
-            cat <<EOF > /tmp/bucket-policy.json
-            {
+          BUCKET_NAME="${{ secrets.BUCKET_NAME }}"
+          POLICY=$(aws s3api get-bucket-policy --bucket $BUCKET_NAME --query 'Policy' --output text || echo "NoPolicy")
+          
+          if [[ "$POLICY" == "NoPolicy" ]]; then
+            echo "Bucket policy not found. Applying the GetBucket policy."
+            aws s3api put-bucket-policy --bucket $BUCKET_NAME --policy '{
               "Version": "2012-10-17",
               "Statement": [
                 {
@@ -43,19 +39,20 @@ jobs:
                   "Effect": "Allow",
                   "Principal": "*",
                   "Action": "s3:GetObject",
-                  "Resource": "arn:aws:s3:::${{ steps.get-bucket.outputs.bucket_name }}/*"
+                  "Resource": "arn:aws:s3:::'"$BUCKET_NAME"'/*"
                 }
               ]
-            }
-            EOF
-            aws s3api put-bucket-policy --bucket ${{ steps.get-bucket.outputs.bucket_name }} --policy file:///tmp/bucket-policy.json
+            }'
           else
-            echo "Bucket policy already exists."
+            echo "Bucket policy already applied."
           fi
 
-      - name: Upload to S3
+      - name: Sync Frontend to S3 Bucket
         run: |
-          aws s3 sync Frontend s3://${{ steps.get-bucket.outputs.bucket_name }} \
-            --delete \
-            --acl public-read \
-            --cache-control "max-age=86400"
+          BUCKET_NAME="${{ secrets.BUCKET_NAME }}"
+          aws s3 sync Frontend/ s3://$BUCKET_NAME --delete
+
+      - name: Apply Static Website Configuration
+        run: |
+          BUCKET_NAME="${{ secrets.BUCKET_NAME }}"
+          aws s3 website s3://$BUCKET_NAME --index-document index.html --error-document 404.html

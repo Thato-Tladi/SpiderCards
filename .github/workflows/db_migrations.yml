@@ -31,4 +31,4 @@ jobs:
 
       - name: Run Flyway Migrations
         run: |
-          flyway -user="${{ secrets.DB_USERNAME }}" -password="${{ secrets.DB_PASSWORD }}" -url="${{ secrets.FLYWAY_URL }}"  -configFiles="Database/flyway/conf/flyway.conf" migrate
+          flyway -user="${{ secrets.DB_USERNAME }}" -password="${{ secrets.DB_PASSWORD }}" -url="${{ secrets.FLYWAY_URL }}" -configFiles="${GITHUB_WORKSPACE}/Database/flyway/conf/flyway.conf" migrate

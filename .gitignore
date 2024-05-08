@@ -1,3 +1,8 @@
 Frontend/lib/services/config-services.js
 Frontend/lib/services/config.json
 Frontend/lib/auth_config.json
+node_modules/
+.log
+.vscode/
+.env
+

@@ -29,6 +29,25 @@ jobs:
           wget -qO- https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/7.5.0/flyway-commandline-7.5.0-linux-x64.tar.gz | tar xvz
           sudo ln -s `pwd`/flyway-7.5.0/flyway /usr/local/bin
 
+      
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Print working directory
+        run: pwd
+
+      - name: List all directory contents
+        run: ls -R
+
+      - name: List migrations folder contents
+        run: ls -l Database/flyway/migrations
+
+      - name: Run Flyway Migration
+        run: |
+          flyway -user="${{ secrets.DB_USERNAME }}" -password="${{ secrets.DB_PASSWORD }}" -url="${{ secrets.FLYWAY_URL }}" -locations="filesystem:${GITHUB_WORKSPACE}/Database/flyway/migrations" migrate
+
+          
+
       - name: Run Flyway Migrations
         run: |
           flyway -user="${{ secrets.DB_USERNAME }}" -password="${{ secrets.DB_PASSWORD }}" -url="${{ secrets.FLYWAY_URL }}" -locations="filesystem:Database/flyway/migrations" migrate

@@ -2,27 +2,19 @@ const BASE_URL = "http://spidercards-app.eu-west-1.elasticbeanstalk.com/api";
 
 const authHeader = "Bearer "+ localStorage.getItem('access_token');
 
-function makeHeaders(json = false) {
-    const myHeaders = new Headers();
-    myHeaders.append("Authorization", authHeader);
-    if (json) {
-        myHeaders.append("Content-Type", "application/json");
+    async function auth() {
+    const response = await fetch(`${BASE_URL}/auth`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": authHeader
+        },
+      });
+      return response;
     }
-    return myHeaders;
-}
 
-function auth() {
-    const requestOptions = {
-        method: 'POST',
-        headers: makeHeaders(),
-        redirect: 'follow'
-    };
-
-fetch(`${BASE_URL}/auth`, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.error(error));
-}
+    const responseForAuth = makeCallToAuth();
+    console.log(responseForAuth);
 
 function startGame() {
     const requestOptions = {

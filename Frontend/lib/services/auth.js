@@ -1,12 +1,13 @@
+import { auth } from "./api.js";
 document.addEventListener('DOMContentLoaded', function() {
-  const config = {
-    domain: "",
-    client_id: "",
-    redirect_uri: "",
-    audience: "",
-    scope: "openid profile email",
-    nonce: "some_nonce"
-};
+    const config = {
+        domain: "",
+        client_id: "",
+        redirect_uri: "",
+        audience: "",
+        scope: "openid profile email",
+        nonce: "some_nonce"
+    };
 
   function checkAuth() {
       const accessToken = localStorage.getItem('access_token');
@@ -28,25 +29,29 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function login() {
-      const params = new URLSearchParams({
-          client_id: config.client_id,
-          response_type: 'token',
-          redirect_uri: config.redirect_uri,
-          scope: config.scope,
-          nonce: config.nonce
-      });
+    const params = new URLSearchParams({
+        client_id: config.client_id,
+        protocol: "oauth2",
+        audience: config.audience,
+        response_type: "token id_token",
+        redirect_uri: config.redirect_uri,
+        scope: config.scope,
+        nonce: config.nonce
+    });
       window.location.href = `https://${config.domain}/authorize?${params.toString()}`;
   }
 
-  function startGame() {
+  async function startGame() {
       console.log('Starting the game!');
-      // Game starting logic goes here
+      auth();
   }
 
   function handleAuthentication() {
       const urlParams = new URLSearchParams(window.location.hash.substr(1));
+      console.log("I'm  your problem "+window.location.hash.substr(1));
       const accessToken = urlParams.get('access_token');
       if (accessToken) {
+        console.log("Token is "+accessToken);
           localStorage.setItem('access_token', accessToken);
           window.location.hash = '';  // Clear URL after storing the token
       }

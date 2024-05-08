@@ -118,4 +118,4 @@ function getUserStats() {
         .catch(error => console.error('Error:', error));
 }
 
-export { startGame, getSessionCards, chooseCard, getSessionInfo, endSession, getLeaderboard, getUserStats,auth };
+export { startGame, getSessionCards, chooseCard, getSessionInfo, endSession, getLeaderboard, getUserStats, auth};

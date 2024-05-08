@@ -22,12 +22,15 @@ jobs:
         with:
           node-version: 18
 
-      - name: Change to API directory
-        run: cd API
-
       - name: Install Dependencies
         working-directory: API
         run: npm ci
+
+      - name: Install Elastic Beanstalk CLI
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y python3-pip
+          pip3 install awsebcli
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3

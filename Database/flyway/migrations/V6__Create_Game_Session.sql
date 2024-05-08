@@ -5,6 +5,7 @@ CREATE TABLE SpiderCardsSchema.GameSessions
     start_time DATETIME NOT NULL,
     end_time DATETIME NULL,
     score INT NOT NULL,
+    current_round INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES SpiderCardsSchema.Users(user_id)
 );
 GO

@@ -41,14 +41,9 @@ jobs:
 
       - name: Deploy to Elastic Beanstalk
         working-directory: API
-        env:
-          PORT: ${{ secrets.PORT }}
-          ISSUER: ${{ secrets.ISSUER }}
-          AUDIENCE: ${{ secrets.AUDIENCE }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          ALLOWED_ORIGINS: ${{ secrets.ALLOWED_ORIGINS }}
         run: |
           zip -r deployment.zip .
           eb init spidercards-application --region eu-west-1 --platform node.js
           eb use spidercards-env
+          eb setenv PORT=${{ secrets.PORT }} ISSUER=${{ secrets.ISSUER }} AUDIENCE=${{ secrets.AUDIENCE }} DATABASE_URL=${{ secrets.DATABASE_URL }} ALLOWED_ORIGINS=${{ secrets.ALLOWED_ORIGINS }}
           eb deploy

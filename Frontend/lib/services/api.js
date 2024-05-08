@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000/api/game";
+const BASE_URL = "http://spidercards-app.eu-west-1.elasticbeanstalk.com/api";
 
 const authHeader = "Bearer "+ localStorage.getItem('access_token');
 
@@ -11,6 +11,19 @@ function makeHeaders(json = false) {
     return myHeaders;
 }
 
+function auth() {
+    const requestOptions = {
+        method: 'POST',
+        headers: makeHeaders(),
+        redirect: 'follow'
+    };
+
+fetch(`${BASE_URL}/auth`, requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.error(error));
+}
+
 function startGame() {
     const requestOptions = {
         method: 'POST',
@@ -18,7 +31,7 @@ function startGame() {
         redirect: 'follow'
     };
 
-    return fetch(`${BASE_URL}/session/start`, requestOptions)
+    return fetch(`${BASE_URL}/game/session/start`, requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.error('Error:', error));
@@ -31,7 +44,7 @@ function getSessionCards(sessionId) {
         redirect: 'follow'
     };
 
-    return fetch(`${BASE_URL}/session/${sessionId}/cards`, requestOptions)
+    return fetch(`${BASE_URL}/game/session/${sessionId}/cards`, requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.error('Error:', error));
@@ -47,7 +60,7 @@ function chooseCard(sessionId, cardId) {
         redirect: 'follow'
     };
 
-    return fetch(`${BASE_URL}/session/${sessionId}/choose`, requestOptions)
+    return fetch(`${BASE_URL}/game/session/${sessionId}/choose`, requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.error('Error:', error));
@@ -60,7 +73,7 @@ function getSessionInfo(sessionId) {
         redirect: 'follow'
     };
 
-    return fetch(`${BASE_URL}/session/${sessionId}/info`, requestOptions)
+    return fetch(`${BASE_URL}/game/session/${sessionId}/info`, requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.error('Error:', error));
@@ -73,7 +86,7 @@ function endSession(sessionId) {
         redirect: 'follow'
     };
 
-    return fetch(`${BASE_URL}/session/${sessionId}/end`, requestOptions)
+    return fetch(`${BASE_URL}/game/session/${sessionId}/end`, requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.error('Error:', error));
@@ -86,7 +99,7 @@ function getLeaderboard() {
         redirect: 'follow'
     };
 
-    return fetch(`${BASE_URL}/leaderboard`, requestOptions)
+    return fetch(`${BASE_URL}/game/leaderboard`, requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.error('Error:', error));
@@ -105,4 +118,4 @@ function getUserStats() {
         .catch(error => console.error('Error:', error));
 }
 
-export { startGame, getSessionCards, chooseCard, getSessionInfo, endSession, getLeaderboard, getUserStats };
+export { startGame, getSessionCards, chooseCard, getSessionInfo, endSession, getLeaderboard, getUserStats,auth };

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spider Game</title>
+    <link rel="stylesheet" href="CSS/index.css">
+</head>
+<body>
+    <nav class="navbar">
+        <img src="assets/logo.png" alt="Spider Icon" class="logo">
+        <h1>SPIDERCARDS</h1>
+        <img src="assets/profile.png" alt="Profile Icon" class="profile" onclick="toggleBubble()"> 
+        <section class="profile-bubble" style="display: none;">
+            <p id="username">Username: <span class="user-info">User123</span></p>
+            <p id="score">Score: <span class="user-info">1500</span></p>
+            <p id="games-played">Games Played: <span class="user-info">75</span></p>
+        </section>
+    </nav>
+    <div class="container">
+        <header>
+            <h1>Welcome to SpiderCards</h1>
+        </header>
+        <main>
+            <button id="actionButton">Login</button>
+            <div id="leaderboard">
+              <h2>Spider Avengers</h2>
+              <table>
+                  <thead>
+                      <tr>
+                          <th>Name</th>
+                          <th>Score</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <!-- Entries will be dynamically generated here -->
+                  </tbody>
+              </table>
+          </div>
+          
+        </main>
+    </div>
+    <script src="services/auth.js"></script>
+    <script src="JS/home.js"></script>
+</body>
+</html>

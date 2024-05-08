@@ -20,34 +20,19 @@
 
     <main>
         <h2 class="animated-text">PICK YOUR BITE</h2>
-        <div id="timer-bar" class="timer-bar"></div>
+        
+        <section id="timer-bar" class="timer-bar"></section>
 
         <!-- <section id="score" class="score-display">Score: 0</section> -->
 
         <section class="card-container" id="spider-cards">
-            <!-- <section class="card" onclick="flipCard(this)">
-                <img src="assets/spider1.jpg" alt="Spider 1">
-            </section>
-            <section class="card cardAnswer" style="display: none;">
-                <p class="card-details">
-                    <section class="cardAnswer-header">Sydney funnel-web </section><br>
-                    With highly toxic venom produced in large amounts it, is without a doubt the deadliest spider in Australia, and possibly the world.</p>
-            </section>
-            <section class="card" onclick="flipCard(this)">
-                <img src="assets/spider2.jpg" alt="Spider 2">
-            </section>
-            <section class="card cardAnswer" style="display: none;">
-                <p class="card-details">
-                    Sydney funnel-web <br>
-                    With highly toxic venom produced in large amounts it, is without a doubt the deadliest spider in Australia, and possibly the world.</p>
-            </section> -->
         </section>
         <section class="navigation">
-            <button class="next" onclick="showNextPair()"><a href="#" class="next round disabled" onclick="return false;">Next &raquo;</a>
+            <button class="next" id="next" onclick="showNextPair()"><a href="#" class="next round disabled" onclick="return false;">Next &raquo;</a>
             </button>
         </section>
         <section class="round-number">
-            <span class="page-number">1 / 5</span>
+            <span class="page-number"></span>
         </section>
        
     </main>

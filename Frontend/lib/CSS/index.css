@@ -7,70 +7,103 @@ body, html {
     background-position: center;
     min-height: 100vh;
 }
+
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100%;
+    width: 100%;
 }
 
-header {
+header h1 {
+    margin-top: 2vh;
+    font-size: 3vw; /* Responsive font size */
+    text-align: center;
+    justify-content: center;
+}
+
+main {
+    width: 80%; /* Taking up 80% of the container width */
+    margin-top: 1em;
+}
+
+#actionButton {
+    background-color: red;
+    border: none;
+    padding: 1em 2em;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+    border-radius: 0.5em;
+    display: block; /* Allows for centering */
+    margin: 0 auto; /* Center button in the container */
+    margin-top: 5vh;
+}
+
+#leaderboard {
+    
+    margin-top: 9vh;
+    background:gainsboro; /* Semi-transparent background */
+    border-radius: 0.5em;
+    padding: 1em;
+    width: 90%;
+    color: Black; /* Ensuring text is white */
+    text-align: center; /* Center-align text in table cells */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: transparent; /* Table background transparency */
+}
+
+th, td {
+    border: 1px solid #ffffff;
+    text-align: center; /* Center-align text in table cells */
+    padding: 0.5em; /* Spacing inside cells */
+    color: green; /* Green text for better readability and theme matching */
+    font-size: 1.2rem; /* Larger text for better visibility */
+}
+
+th {
+    color: black; /* Red color for header to differentiate and add to theme */
+}
+
+.navbar {
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
+    align-items: center;
+    background-color: white;
+    padding: 1rem 2rem;
+}
+
+.logo, .profile {
+    height: 2rem; 
 }
 
 h1 {
-    color: red;
-    font-size: 2em;
+    color: rgb(174, 38, 38);
+    font-family: Arial, sans-serif;
+    top: 0; 
+    left: 0; 
+    margin: 50px; 
+    font-size: 3vw;
 }
 
-.profile {
-    width: 50px;
-    height: 50px;
-}
-
-.profile img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-}
-
-.cards {
-    position: relative;
-    height: 150px;
-    margin: 20px 0;
-}
-
-.card {
-    position: absolute;
-    top: 0;
-    width: 100px;
-    height: 150px;
-    transform: translateX(-50%);
-}
-
-.go-button {
-    background-color: green;
-    border: none;
-    padding: 15px 30px;
-    color: white;
-    font-size: 1.2em;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-h2 {
-    color: green;
-    margin: 10px 0;
-}
 
 @media (max-width: 600px) {
-    .card {
-        width: 80px;
-        height: 120px;
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    #startGameButton {
+        font-size: 1rem;
+        padding: 0.8em 1.6em;
+    }
+
+    th, td {
+        padding: 0.4em;
     }
 }

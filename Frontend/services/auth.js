@@ -1,12 +1,13 @@
+import { auth, gameInit} from "./api.js";
 document.addEventListener('DOMContentLoaded', function() {
-  const config = {
-    domain: "dev-rl7aax8fm51txbjk.us.auth0.com",
-    client_id: "Pftm1IeOZCzd0miQXZdlZM8tFu8uBBOB",
-    redirect_uri: "http://spidercards-frontend-20240508.s3-website-eu-west-1.amazonaws.com",
-    audience: "https://spider-cards.co.za",
-    scope: "openid profile email",
-    nonce: "some_nonce"
-};
+    const config = {
+        domain: "dev-rl7aax8fm51txbjk.us.auth0.com",
+        client_id: "Pftm1IeOZCzd0miQXZdlZM8tFu8uBBOB",
+        redirect_uri: "http://localhost:8080",
+        audience: "https://spider-cards.co.za",
+        scope: "openid profile email",
+        nonce: "some_nonce"
+    };
 
   function checkAuth() {
       const accessToken = localStorage.getItem('access_token');
@@ -28,25 +29,38 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function login() {
-      const params = new URLSearchParams({
-          client_id: config.client_id,
-          response_type: 'token',
-          redirect_uri: config.redirect_uri,
-          scope: config.scope,
-          nonce: config.nonce
-      });
+    const params = new URLSearchParams({
+        client_id: config.client_id,
+        protocol: "oauth2",
+        audience: config.audience,
+        response_type: "token id_token",
+        redirect_uri: config.redirect_uri,
+        scope: config.scope,
+        nonce: config.nonce
+    });
       window.location.href = `https://${config.domain}/authorize?${params.toString()}`;
   }
 
-  function startGame() {
+  async function startGame() {
       console.log('Starting the game!');
-      // Game starting logic goes here
+    // Assuming auth() returns a Promise
+    auth().then(() => {
+        // Redirect to spiderInit.html on successful authentication
+        // window.location.href = 'Frontend/lib/spiderInit.html';
+        gameInit().then(() => {window.location.href='Frontend/lib/Play.html';});
+        //getSessionCards();
+    }).catch((error) => {
+        // Handle any errors that occur during authentication
+        console.error('Authentication failed:', error);
+    });
   }
 
   function handleAuthentication() {
       const urlParams = new URLSearchParams(window.location.hash.substr(1));
+      console.log("I'm  your problem "+window.location.hash.substr(1));
       const accessToken = urlParams.get('access_token');
       if (accessToken) {
+        console.log("Token is "+accessToken);
           localStorage.setItem('access_token', accessToken);
           window.location.hash = '';  // Clear URL after storing the token
       }

@@ -4,12 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spider Game</title>
-    <link rel="stylesheet" href="CSS/index.css">
+    <link rel="stylesheet" href="Frontend/CSS/index.css">
 </head>
 <body>
-    <section class="navigation">
-        <iframe src="nav.html" class="nave"></iframe>
-    </section>
+    <nav class="navbar">
+        <img src="Frontend/assets/logo.png" alt="Spider Icon" class="logo">
+        <h1>SPIDERCARDS</h1>
+        <img src="Frontend/assets/profile.png" alt="Profile Icon" class="profile" onclick="toggleBubble()"> 
+        <section class="profile-bubble" style="display: none;">
+            <p id="username">Username: <span class="user-info">User123</span></p>
+            <p id="score">Score: <span class="user-info">1500</span></p>
+            <p id="games-played">Games Played: <span class="user-info">75</span></p>
+        </section>
+    </nav>
     <div class="container">
         <header>
             <h1>Welcome to SpiderCards</h1>
@@ -33,7 +40,7 @@
           
         </main>
     </div>
-    <script type="module" src="services/auth.js"></script>
-    <script src="JS/home.js"></script>
+    <script type="module" src="Frontend/lib/services/auth.js"></script>
+    <script src="Frontend/lib/JS/home.js"></script>
 </body>
 </html>

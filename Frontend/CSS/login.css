@@ -4,56 +4,6 @@ body {
       background-image: url('../assets/background.png');
   }
   
-  .card-container {
-    height: 550px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 100px; 
-}
-
-  
-  .card {
-    display: grid;
-    grid-template-columns: 50px 250px;
-    justify-items: center;
-    font-size: 25px;
-    width: 350px;
-    height: 175px;
-    border-radius: 10px;
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
-    perspective: 400px;
-    transform: rotateX(50deg) rotateZ(50deg);
-    margin: -50px;
-    transition: all 1s ease;
-  }
-  
-  .card:hover {
-    margin: 100px;
-  }
-  
-  .card1:hover {
-    margin: -75px;
-  }
-  
-  .card1 {
-    z-index: 3;
-    background-color: white;
-  }
-  
-  .card2 {
-    color: white;
-    z-index: 2;
-    background-color: red;
-  }
-  
-  .card3 {
-    color: white;
-    z-index: 1;
-    background-color: black;
-  }
-
   .navbar {
     display: flex;
     justify-content: space-between;
@@ -79,13 +29,13 @@ h1 {
 
 .animated-text {
     font-style: italic; 
-    color: 	#228B22;
+    color: #8B0000;
     position: absolute; 
     font-size: 30px;
     left: 50%; 
     transform: translateX(-50%); 
-    animation: slideIn 3s ease-out forwards; 
-    margin-top:1px;
+    animation: alternate-reverse 3s ease-out forwards; 
+    margin-top:-70px;
   }
   
   @keyframes slideIn {
@@ -105,15 +55,6 @@ h1 {
     cursor: pointer;
   }
 
-  .go-image {
-    cursor: pointer;
-    float: right; 
-    margin-top: -150px; 
-    margin-right: 120px; 
-    width: 130px;
-    height: auto;
-}
-  
 img:hover {
   transform: scale(1.1);
   transition: transform 0.2s ease; 
@@ -168,4 +109,46 @@ img:hover {
 @keyframes fadeIn {
   from {opacity: 0;}
   to {opacity:1 ;}
+}
+
+/*For the form*/
+.mainContainer {
+  max-width: 400px;
+  margin: 70px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+.input-group {
+  margin-top: 15px;
+}
+
+.input-group input {
+  width: calc(100% - 22px); /* Adjusted width */
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 9px;
+  background-color: #A9A9A9;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #A9A9A9;
+  color: white;
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
 }

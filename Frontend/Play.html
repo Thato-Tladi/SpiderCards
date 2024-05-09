@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SpiderCards</title>
+<link rel="stylesheet" href="CSS/Play.css">
+<script src="JS/Play.js"></script>
+</head>
+<body>
+    <section class="navigation">
+        <iframe src="nav.html" class="nave"></iframe>
+    </section>
+    <main>
+        <h2 class="animated-text">PICK YOUR BITE</h2>
+        
+        <section id="timer-bar" class="timer-bar"></section>
+
+        <!-- <section id="score" class="score-display">Score: 0</section> -->
+
+        <section class="card-container" id="spider-cards">
+        </section>
+        <section class="navigation">
+            <button class="next" id="next" onclick="showNextPair()"><a href="#" class="next round disabled" onclick="return false;">Next &raquo;</a>
+            </button>
+        </section>
+        <section class="round-number">
+            <span class="page-number"></span>
+        </section>
+       
+    </main>
+    <footer>
+        <span class="help icon"></span>
+    </footer>
+</body>
+</html>

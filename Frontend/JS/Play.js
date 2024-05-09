@@ -34,8 +34,18 @@ function startTimer() {
         }
 
         if (timeLeft <= 0) {
+            displayMessage('Time up! -100 points', true);
+            score-=100;
+            hasScoredThisRound = true;
+
+            var link = document.querySelector('.next.round');
+            if (link.classList.contains('disabled')) {
+                link.classList.remove('disabled');
+              //   link.href = "your-next-page.html";
+                link.removeAttribute('onclick'); // Remove the onclick attribute that prevents clicking
+            }
+            
             clearInterval(timerInterval);
-            automaticCardFlip();
         }
     }, 1000);
 }
@@ -46,15 +56,12 @@ function resetTimer() {
 }
 
 function automaticCardFlip() {
-    // Assume the first card is always venomous and the second is non-venomous
-    const nonVenomousIndex = currentSpiderIndex % 2 === 0 ? currentSpiderIndex + 1 : currentSpiderIndex;
-    const cardToFlip = document.querySelectorAll('.card')[nonVenomousIndex];
 
     if (!hasScoredThisRound) {
         score -= 100; // Deduct points automatically
         updateScoreDisplay();
         displayMessage('Time up! -100 points', true);
-        flipCard(cardToFlip);
+        // flipCard(cardToFlip);
     }
 }
 
@@ -84,15 +91,53 @@ function showSpiders() {
 }
 
 
+// function showNextPair() {
+//     currentSpiderIndex += 2;
+//     if (currentSpiderIndex >= spiders.length) {
+//         currentSpiderIndex = 0; // Restart or handle as needed
+//     }
+    
+//     resetTimer(); // Ensure the old timer is stopped and reset visually
+//     showSpiders();
+//     var link = document.querySelector('.next.round');
+//     if (!link.classList.contains('disabled')) {
+//         link.classList.add('disabled');
+//     }
+//     startTimer(); 
+// }
 function showNextPair() {
     currentSpiderIndex += 2;
-    if (currentSpiderIndex >= spiders.length) {
-        currentSpiderIndex = 0; // Restart or handle as needed
+
+    // Check if we're at the last pair of images
+    if (currentSpiderIndex >= spiders.length - 2) {
+        // Change button text to "Result" and adjust click functionality
+        const nextButton = document.querySelector('.next.round');
+        nextButton.textContent = 'Result';
+        nextButton.onclick = displayResult; // Change onclick event to display results
+    } else if (currentSpiderIndex >= spiders.length) {
+        // Reset or handle as needed if beyond the last page
+        currentSpiderIndex = 0;
+        showSpiders();
+        resetTimer();
+        startTimer();
+        return;
     }
-    resetTimer(); // Ensure the old timer is stopped and reset visually
+
     showSpiders();
-    startTimer(); 
+    resetTimer();
+    startTimer();
 }
+
+function displayResult() {
+    const mainContent = document.querySelector('main');
+    const videoFile = score > 0 ? 'assets/win.mp4' : 'assets/lose.mp4';
+
+    mainContent.innerHTML = `
+        <h2 class="animated-text">You ${score > 0 ? 'won' : 'lost'} ${Math.abs(score)} points</h2>
+        <video src="${videoFile}" autoplay loop></video>
+    `;
+}
+
 
 function updateNavigation() {
     const pageNumber = document.querySelector('.page-number');
@@ -105,7 +150,6 @@ function flipCard(element) {
 
         // Stop the timer when a card is selected
     clearInterval(timerInterval);
-    const timerBar = document.getElementById('timer-bar');
     
     // Flipping the original card to show the backside
     card.style.transform = 'rotateY(180deg)';
@@ -149,38 +193,38 @@ function flipCard(element) {
 
     // Update the displayed score
     updateScoreDisplay();
-  
-      // Function to handle message display
-      function displayMessage(text, isVenomous) {
-          const message = document.createElement('div');
-          message.style.position = 'absolute';
-          message.style.top = '10%';
-          message.style.left = '0';
-          message.style.width = '100%';
-          message.style.textAlign = 'center';
-          message.style.color = isVenomous ? 'red' : 'green';
-          message.style.fontSize = '2rem';
-          message.style.fontWeight = 'bold';
-          message.style.zIndex = '1000';
-          message.textContent = text;
-          document.body.appendChild(message);
-  
-          // Animation
-          message.animate([
-              { opacity: 0 },
-              { opacity: 1, offset: 0.1 },
-              { opacity: 1, offset: 0.9 },
-              { opacity: 0 }
-          ], {
-              duration: 3000,
-              easing: 'ease-in-out'
-          });
-  
-          // Remove message after 3 seconds
-          setTimeout(() => {
-              message.remove();
-          }, 3000);
-      }
+
+    }
+
+    function displayMessage(text, isVenomous) {
+        const message = document.createElement('div');
+        message.style.position = 'fixed';
+        message.style.top = '10%';
+        message.style.left = '0';
+        message.style.width = '100%';
+        message.style.textAlign = 'center';
+        message.style.color = isVenomous ? 'red' : 'green';
+        message.style.fontSize = '2rem';
+        message.style.fontWeight = 'bold';
+        message.style.zIndex = '1000';
+        message.textContent = text;
+        document.body.appendChild(message);
+
+        // Animation
+        message.animate([
+            { opacity: 0 },
+            { opacity: 1, offset: 0.1 },
+            { opacity: 1, offset: 0.9 },
+            { opacity: 0 }
+        ], {
+            duration: 3000,
+            easing: 'ease-in-out'
+        });
+
+        // Remove message after 3 seconds
+        setTimeout(() => {
+            message.remove();
+        }, 3000);
     }
 
     //function for displaying 
@@ -194,5 +238,4 @@ function flipCard(element) {
     window.onload = function() {
         initializeDisplay();
         updateScoreDisplay(); // Initial score update
-        startRound();
     }

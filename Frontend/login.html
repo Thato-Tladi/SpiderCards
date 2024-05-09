@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spider Cards</title>
+    <link rel="stylesheet" href="CSS/login.css">
+    <script src="JS/SpiderInit.js"></script>
+</head>
+<body>
+    <section class="container">
+        <nav class="navbar">
+            <img src="assets/logo.png" alt="Spider Icon" class="logo">
+            <h1><b>SPIDERCARDS</b></h1>
+            <section class="popup" onclick="myFunction()"><img src="assets/profile.png" alt="Profile Icon" class="profile">
+                <span class="popuptext" id="myPopup">Testing IDE...</span>
+            </section>   
+        </nav>
+    </section>
+        <main class="mainContainer">
+        <h2 class="animated-text">LOGIN</h2>
+        <form action="submit.php" method="post">
+            <section class="input-group">
+                <input type="text" id="username" name="username" placeholder="Username" required>
+            </section>
+            <section class="input-group">
+                <input type="password" id="password" name="password" placeholder="Password" required>
+            </section>
+            <button type="submit">Login</button>
+        </form>
+        </main> 
+        
+    </section>
+</body>
+</html>

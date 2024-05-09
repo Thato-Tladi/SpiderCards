@@ -11,7 +11,8 @@ const app = express();
 
 startIdleSessionChecker(5);
 
-//app.use(corsMiddleware);
+app.use(corsMiddleware);
+app.options('*', cors(corsOptions));
 app.use(express.json());
 
 app.use('/api', authRoutes);

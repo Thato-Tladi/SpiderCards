@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
  
     // Fetch user data for the statistics
     const getUserData = () => {
-        const bearerToken = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImZwVFN5X3gtUGpzTUNkbm1UalNZVSJ9.eyJodHRwczovL2RvZ3plbi5jb20vY2xhaW1zL2VtYWlsIjoidTIxNDk5NzQ5QHR1a3MuY28uemEiLCJpc3MiOiJodHRwczovL2Rldi1ybDdhYXg4Zm01MXR4YmprLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDEwMzk0MDkyNTAyNDE1MjQwODExNSIsImF1ZCI6WyJodHRwczovL3NwaWRlci1jYXJkcy5jby56YSIsImh0dHBzOi8vZGV2LXJsN2FheDhmbTUxdHhiamsudXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTcxNTI0NjgxMywiZXhwIjoxNzE1MjU0MDEzLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwiYXpwIjoiUGZ0bTFJZU9aQ3pkMG1pUVhaZGxaTTh0RnU4dUJCT0IifQ.EpaGcEPtvBqfYPOuQIHrvwQZ2TV6IupIdfYMHICixqlzkqpW74BrvzxZzCMJvunknZ1JI0iZYU0382gQVM5qHWon4DnZ8OfXoXz9EJOLm_9w_AW8aDeFWAoKm8-dBnhiKweB1oRB1VrtOTqrD4wWOeuPwio9bPQ_-yBwFzmc-l08vmIDN8WoyeVW3ZEYsaB8ifhks6rIMmKcIg4Uc2r7x8h6JNPTKvCzOWvLJKr5o4-ta3IbvBMHX3D-P_ADRekPuKbMLxjfgTyrkOoqWt3ZRkGd-ZNgN_gmMV5GRrAGPDRiPdzJiUAAqXsKiSEpL-05oNRkBnUU02fQyCincbCttg'; // Replace with actual token
+        const bearerToken = localStorage.getItem('access_token');
         fetch('http://spidercards-app.eu-west-1.elasticbeanstalk.com/api/user/stats', {
             method: 'GET',
             headers: {

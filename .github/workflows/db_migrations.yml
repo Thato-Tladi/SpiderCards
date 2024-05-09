@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'Database/flyway/migrations**'
+      - 'Database/flyway/migrations/**'
   workflow_dispatch:
 
 jobs:
@@ -24,11 +24,23 @@ jobs:
     needs: SetupDatabase
     runs-on: ubuntu-latest
     steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
       - name: Install Flyway
         run: |
-          wget -qO- https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/7.5.0/flyway-commandline-7.5.0-linux-x64.tar.gz | tar xvz
-          sudo ln -s `pwd`/flyway-7.5.0/flyway /usr/local/bin
+          wget -qO- https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/9.22.0/flyway-commandline-9.22.0-linux-x64.tar.gz | tar xvz
+          sudo ln -s `pwd`/flyway-9.22.0/flyway /usr/local/bin/flyway
+      
+      - name: Print working directory
+        run: pwd
+
+      - name: List all directory contents
+        run: ls -R
+
+      - name: List migrations folder contents
+        run: ls -l Database/flyway/migrations
 
       - name: Run Flyway Migrations
         run: |
-          flyway -user="${{ secrets.DB_USERNAME }}" -password="${{ secrets.DB_PASSWORD }}" -url="${{ secrets.FLYWAY_URL }}"  -configFiles="Database/flyway/conf/flyway.conf" migrate
+          flyway -user="${{ secrets.DB_USERNAME }}" -password="${{ secrets.DB_PASSWORD }}" -url="${{ secrets.FLYWAY_URL }}" -locations="filesystem:Database/flyway/migrations" migrate

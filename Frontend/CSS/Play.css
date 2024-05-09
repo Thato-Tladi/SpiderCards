@@ -155,7 +155,7 @@ a {
 
 
 .timer-bar {
-    position: fixed;
+    position: absolute;
     left: 10%;
     min-height: 1vh;
     width: 0%;

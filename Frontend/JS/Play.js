@@ -65,6 +65,13 @@ function submitCardChoice(cardId, isTimeout = false) {
     });
 }
 
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+    }
+}
+
 function updateSessionInfo() {
     const url = `${baseUrl}/session/${sessionId}/info`;
     fetch(url, {
@@ -121,7 +128,6 @@ function startTimer() {
         }
 
         if (timeLeft <= 0) {
-            displayMessage('Time up! -100 points', true);
             score -= 100;
             hasScoredThisRound = true;
             submitCardChoice(cards[0].card_id, true);
@@ -146,9 +152,11 @@ function showSpiders() {
     const container = document.getElementById('spider-cards');
     container.innerHTML = '';
 
+    shuffle(cards);
+
     for (let i = 0; i < cards.length; i++) {
         const spider = cards[i];
-        const cardColor = spider.toxicity_rating > 0 ? 'red' : 'green'; // Determine color based on toxicity_rating property
+        const cardColor = spider.type_id == 1 ? 'red' : 'green'; // Determine color based on toxicity_rating property
         container.innerHTML += `
             <section class="card" onclick="flipCard(this, ${spider.card_id}, ${spider.toxicity_rating > 0})">
                 <img src="${spider.image_url}" alt="${spider.name}">
@@ -181,6 +189,7 @@ function displayResult() {
     mainContent.innerHTML = `
         <h2 class="animated-text">You ${score > 0 ? 'won' : 'lost'} ${Math.abs(score)} points</h2>
         <video src="${videoFile}" autoplay loop></video>
+        <button><a href="index.html">Home</button>
     `;
 }
 

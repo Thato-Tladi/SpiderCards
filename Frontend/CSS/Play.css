@@ -186,7 +186,6 @@ button:enabled {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
 }
 
 .navigation button {
@@ -239,7 +238,7 @@ h1 {
     color: red;
 }
 h2 {
-    font-size: 2vw; /* Adjust font size based on the width of the viewport */
+    font-size: 4vw; /* Adjust font size based on the width of the viewport */
 }
 
 /* Responsive profile and navigation elements */
@@ -266,7 +265,9 @@ h2 {
     background-color: inherit; /* Ensure cardAnswer inherits the background */
 }
 
-
+video {
+    width: 50%;
+}
 
 @media (max-width: 600px) {
     .card, .cardAnswer {
@@ -285,5 +286,6 @@ h2 {
 
 main{
     flex: 1;
-    padding: 20px;
+    padding: 2rem;
+    margin-top: -10%;
 }

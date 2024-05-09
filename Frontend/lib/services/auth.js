@@ -1,4 +1,4 @@
-import { auth } from "./api.js";
+import { auth, gameInit} from "./api.js";
 document.addEventListener('DOMContentLoaded', function() {
     const config = {
         domain: "dev-rl7aax8fm51txbjk.us.auth0.com",
@@ -43,7 +43,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
   async function startGame() {
       console.log('Starting the game!');
-      auth();
+    // Assuming auth() returns a Promise
+    auth().then(() => {
+        // Redirect to spiderInit.html on successful authentication
+        // window.location.href = 'Frontend/lib/spiderInit.html';
+        gameInit().then(() => {window.location.href='Frontend/lib/Play.html';});
+        //getSessionCards();
+    }).catch((error) => {
+        // Handle any errors that occur during authentication
+        console.error('Authentication failed:', error);
+    });
   }
 
   function handleAuthentication() {

@@ -2,7 +2,7 @@ const BASE_URL = "http://spidercards-app.eu-west-1.elasticbeanstalk.com/api";
 
 const authHeader = "Bearer "+ localStorage.getItem('access_token');
 
-    async function auth() {
+async function auth() {
     const response = await fetch(`${BASE_URL}/auth`, {
         method: "POST",
         headers: {
@@ -13,50 +13,85 @@ const authHeader = "Bearer "+ localStorage.getItem('access_token');
       return response;
     }
 
-    const responseForAuth = makeCallToAuth();
-    console.log(responseForAuth);
+ async function gameInit() {
+    try {
+        const response = await fetch(`${BASE_URL}/game/start`, {
+            method: "POST",
+            headers: {
+                "Authorization": authHeader
+            }
+        });
 
-function startGame() {
-    const requestOptions = {
-        method: 'POST',
-        headers: makeHeaders(),
-        redirect: 'follow'
-    };
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
-    return fetch(`${BASE_URL}/game/session/start`, requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.error('Error:', error));
+        const data = await response.json(); // Parse JSON response
+        console.log("Server response:", data);
+
+        // Assuming the response JSON object contains a 'sessionId' key
+        const sessionId = data.sessionId;
+        console.log("Session ID:", sessionId);
+
+        // Store the sessionId in sessionStorage
+        sessionStorage.setItem('sessionId', sessionId);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+    }
+
+
+async function getSessionCards() {
+    try {
+        const response = await fetch(`${BASE_URL}/game/session/${sessionStorage.getItem('sessionId')}/cards`, {
+            method: 'GET',
+            headers: {
+                "Authorization": authHeader
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json(); // Parse JSON response
+        console.log("Server response:", data);
+    
+        return response;
+    } catch (error) {
+        console.error('Error:', error);
+    }
 }
 
-function getSessionCards(sessionId) {
-    const requestOptions = {
-        method: 'GET',
-        headers: makeHeaders(),
-        redirect: 'follow'
-    };
 
-    return fetch(`${BASE_URL}/game/session/${sessionId}/cards`, requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.error('Error:', error));
-}
+async function chooseCard(cardId) {
+    
+    try {
+        const raw = JSON.stringify({ cardId });
+        const response = await fetch(`${BASE_URL}/game/session/${sessionStorage.getItem('sessionId')}/choose`, {
+            method: "POST",
+            body: raw,
+            headers: {
+                "Authorization": authHeader
+            }
+        });
 
-function chooseCard(sessionId, cardId) {
-    const raw = JSON.stringify({ cardId });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
-    const requestOptions = {
-        method: 'POST',
-        headers: makeHeaders(true),
-        body: raw,
-        redirect: 'follow'
-    };
+        const data = await response.json(); // Parse JSON response
+        console.log("Server response:", data);
 
-    return fetch(`${BASE_URL}/game/session/${sessionId}/choose`, requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.error('Error:', error));
-}
+        // Assuming the response JSON object contains a 'sessionId' key
+        const sessionId = data.sessionId;
+        console.log("Session ID:", sessionId);
+
+        // Store the sessionId in sessionStorage
+        sessionStorage.setItem('sessionId', sessionId);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+    }
 
 function getSessionInfo(sessionId) {
     const requestOptions = {
@@ -110,4 +145,4 @@ function getUserStats() {
         .catch(error => console.error('Error:', error));
 }
 
-export { startGame, getSessionCards, chooseCard, getSessionInfo, endSession, getLeaderboard, getUserStats, auth};
+export { gameInit, getSessionCards, chooseCard, getSessionInfo, endSession, getLeaderboard, getUserStats, auth};

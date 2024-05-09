@@ -25,7 +25,10 @@ function getNextCardPair() {
         showSpiders();
         startTimer();
     })
-    .catch(error => console.error('Error fetching card pairs:', error));
+    .catch(error => {
+        console.error('Error fetching card pairs:', error);
+        window.location.href = 'Error.html';
+    });
 }
 
 function submitCardChoice(cardId, isTimeout = false) {
@@ -56,7 +59,10 @@ function submitCardChoice(cardId, isTimeout = false) {
             }
         }
     })
-    .catch(error => console.error('Error submitting card choice:', error));
+    .catch(error => {
+        console.error('Error submitting card choice:', error);
+        window.location.href = 'Error.html';
+    });
 }
 
 function updateSessionInfo() {
@@ -72,7 +78,10 @@ function updateSessionInfo() {
         currentRound = data.current_round;
         updateScoreDisplay();
     })
-    .catch(error => console.error('Error fetching session info:', error));
+    .catch(error => {
+        console.error('Error fetching session info:', error);
+        window.location.href = 'Error.html';
+    });
 }
 
 function endGameSession() {
@@ -87,7 +96,11 @@ function endGameSession() {
     .then(data => {
         displayResult();
     })
-    .catch(error => console.error('Error ending game session:', error));
+    .catch(error => {
+        console.error('Error ending game session:', error);
+        window.location.href = 'Error.html';
+    });
+    
 }
 
 function startTimer() {

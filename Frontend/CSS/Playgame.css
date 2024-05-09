@@ -271,14 +271,36 @@ footer {
   .next-button:hover {
     background-color: #b40e0e; /* Darker red on hover */
   }
+  .navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    padding: 0rem 2rem;
+    z-index: 100; /* Ensure the navigation bar is on top */
+  }
+  
+  .nave {
+    border: none;
+    width: 100%;
+    height: auto;
+    display: block;
+    overflow: hidden;
+    padding: 1%;
+  }
+  
   .game-info {
     position: fixed;
-    top: 10px;
+    top: 100px; /* Adjust the top position to leave space below the navigation bar */
     right: 10px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     color: #fff;
+    z-index: 99; /* Ensure the game info is below the navigation bar */
   }
   
   .timer,
@@ -292,13 +314,33 @@ footer {
   }
   
   .timer {
-    background-color: #333;
+    background-color: #9e0404;
     padding: 5px 10px;
     border-radius: 5px;
   }
   
   .score {
-    background-color: #333;
+    background-color: #980505;
     padding: 5px 10px;
     border-radius: 5px;
   }
+  .command {
+    text-align: center;
+    margin-top: 10px;
+    color: #333;
+    font-size: 24px;
+  }
+  .command {
+    text-align: center;
+    margin-top: 20px; 
+    color: #8b0707; /* Red text color */
+    font-size: 28px; /* Adjust the font size */
+    font-weight: bold; /* Make the text bold */
+    text-transform: uppercase; /* Uppercase text */
+    position: relative;
+    top: -145px; /* Adjust the top position to align below the navigation bar */
+    left: 190%;
+  transform: translateX(-50%);
+  z-index: 99; /* Ensure the command is on top */
+  }
+  

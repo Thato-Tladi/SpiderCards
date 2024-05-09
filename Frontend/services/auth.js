@@ -26,14 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
           button.addEventListener('click', login);
       }
   }
-<<<<<<< HEAD
-  
-  export async function getAccessToken() {
-    return localStorage.getItem("ACCESS_TOKEN");
-  }
-
-  
-=======
 
   function login() {
       const params = new URLSearchParams({
@@ -64,4 +56,3 @@ document.addEventListener('DOMContentLoaded', function() {
   handleAuthentication();
 });
 
->>>>>>> 32c2699465189245dc2b2a3d719b3efcad3849b4

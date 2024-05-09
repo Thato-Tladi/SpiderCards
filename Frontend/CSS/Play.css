@@ -273,3 +273,17 @@ h2 {
         flex: 1 1 90%; /* On smaller screens, make each card take nearly full width */
     }
 }
+
+.nave {
+    border: none;
+    width: 100%;
+    height: auto; /* Adjust height automatically based on content */
+    display: block; /* Ensure it takes full width */
+    overflow: hidden; /* Hide any content that overflows the container */
+    padding: 10px;
+  }
+
+main{
+    flex: 1;
+    padding: 20px;
+}

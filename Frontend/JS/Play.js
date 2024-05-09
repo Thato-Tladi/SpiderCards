@@ -3,9 +3,9 @@ let hasScoredThisRound = false;
 let timerInterval;
 
 const spiders = [
-    { name: "Sydney Funnel-Web", description: "With highly toxic venom produced in large amounts, it is without a doubt the deadliest spider in Australia, and possibly the world.", venomous: false, image: "assets/spider1.jpg" },
-    { name: "Garden Spider", description: "Common non-venomous spider known for its decorative webs.", venomous: true, image: "assets/spider2.jpg" },
     { name: "Sydney Funnel-Web", description: "With highly toxic venom produced in large amounts, it is without a doubt the deadliest spider in Australia, and possibly the world.", venomous: true, image: "assets/spider1.jpg" },
+    { name: "Garden Spider", description: "Common non-venomousssss spider known for its decorative webs.", venomous: false, image: "assets/spider2.jpg" },
+    { name: "Sydney Funnel-Web", description: "With highlyyyy toxic venom produced in large amounts, it is without a doubt the deadliest spider in Australia, and possibly the world.", venomous: false, image: "assets/spider1.jpg" },
     { name: "Garden Spider", description: "Common non-venomous spider known for its decorative webs.", venomous: true, image: "assets/spider2.jpg" },
 ];
 

@@ -13,10 +13,10 @@ body, html {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 90%;
+    height: 100%;
     width: 100%;
     flex: 1;
-    padding: 1px;
+    padding: 20px;
 }
 
 header h1 {
@@ -112,13 +112,12 @@ h1 {
 
 .nave {
     border: none;
-    width: 95%; /* Set width to 80% of the page */
-    margin: 0 auto; /* Center the nave horizontally */
-    height: 10%; /* Adjust height automatically based on content */
+    width: 100%;
+    height: auto; /* Adjust height automatically based on content */
     display: block; /* Ensure it takes full width */
     overflow: hidden; /* Hide any content that overflows the container */
-    padding: 1px;
-    min-height: 27vh;
+    padding: 10px;
+    background-color: white;
   }
-  
+
  

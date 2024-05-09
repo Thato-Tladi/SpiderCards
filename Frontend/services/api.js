@@ -56,7 +56,7 @@ async function getSessionCards() {
         const data = await response.json(); // Parse JSON response
         console.log("Server response:", data);
     
-        return response;
+        return data;
     } catch (error) {
         console.error('Error:', error);
     }

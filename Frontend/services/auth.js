@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
     auth().then(() => {
         // Redirect to spiderInit.html on successful authentication
         // window.location.href = 'Frontend/lib/spiderInit.html';
-        gameInit().then(() => {window.location.href='Frontend/Play.html';});
+        gameInit().then(() => {window.location.href='Play.html';});
         //getSessionCards();
     }).catch((error) => {
         // Handle any errors that occur during authentication

@@ -1,131 +1,164 @@
 let score = 0; // Initialize player's score
-let hasScoredThisRound = false; 
+let hasScoredThisRound = false;
 let timerInterval;
-
-const spiders = [
-    { name: "Sydney Funnel-Web", description: "With highly toxic venom produced in large amounts, it is without a doubt the deadliest spider in Australia, and possibly the world.", venomous: true, image: "assets/spider1.jpg" },
-    { name: "Garden Spider", description: "Common non-venomousssss spider known for its decorative webs.", venomous: false, image: "assets/spider2.jpg" },
-    { name: "Sydney Funnel-Web", description: "With highlyyyy toxic venom produced in large amounts, it is without a doubt the deadliest spider in Australia, and possibly the world.", venomous: false, image: "assets/spider1.jpg" },
-    { name: "Garden Spider", description: "Common non-venomous spider known for its decorative webs.", venomous: true, image: "assets/spider2.jpg" },
-];
-
-let currentSpiderIndex = 0;
+let currentRound = 1;
+let sessionId = sessionStorage.getItem('sessionId');
+let cards = [];
+const baseUrl = 'http://spidercards-app.eu-west-1.elasticbeanstalk.com/api/game';
+const timeoutLimit = 10000; // 10 seconds
 
 function initializeDisplay() {
-    resetTimer();
-    showSpiders();
-    startTimer();
+    getNextCardPair();
 }
+
+function getNextCardPair() {
+    const url = `${baseUrl}/session/${sessionId}/cards`;
+    fetch(url, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        cards = data.cards;
+        currentRound = data.current_round;
+        showSpiders();
+        startTimer();
+    })
+    .catch(error => console.error('Error fetching card pairs:', error));
+}
+
+function submitCardChoice(cardId, isTimeout = false) {
+    const url = `${baseUrl}/session/${sessionId}/choose`;
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        },
+        body: JSON.stringify({ cardId, isTimeout })
+    })
+    .then(response => response.json())
+    .then(data => {
+        updateScore(data.scoreChange);
+        hasScoredThisRound = true;
+        displayMessage(`${data.correct ? 'Correct' : 'Incorrect'}! ${data.scoreChange > 0 ? '+' : ''}${data.scoreChange} points`, data.scoreChange > 0);
+
+        updateSessionInfo();
+
+        if (data.finalRound) {
+            displayResult();
+        } else {
+            var link = document.querySelector('.next.round');
+            if (link.classList.contains('disabled')) {
+                link.classList.remove('disabled');
+                link.removeAttribute('onclick');
+            }
+        }
+    })
+    .catch(error => console.error('Error submitting card choice:', error));
+}
+
+function updateSessionInfo() {
+    const url = `${baseUrl}/session/${sessionId}/info`;
+    fetch(url, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        score = data.score;
+        currentRound = data.current_round;
+        updateScoreDisplay();
+    })
+    .catch(error => console.error('Error fetching session info:', error));
+}
+
+function endGameSession() {
+    const url = `${baseUrl}/session/${sessionId}/end`;
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        displayResult();
+    })
+    .catch(error => console.error('Error ending game session:', error));
+}
+
 function startTimer() {
     const timerBar = document.getElementById('timer-bar');
-    timerBar.style.width = '0%'; // Initialize the width to 0% for a new round
-    timerBar.classList.remove('red'); // Remove the red class if it was added previously
+    timerBar.style.width = '0%';
+    timerBar.classList.remove('red');
     let startTime = Date.now();
 
     timerInterval = setInterval(function() {
         let elapsedTime = Date.now() - startTime;
-        let timeLeft = 30000 - elapsedTime;
-        let percentageWidth = ((30000 - timeLeft) / 30000) * 80; // Calculate width as a percentage of time passed
+        let timeLeft = timeoutLimit - elapsedTime;
+        let percentageWidth = ((timeoutLimit - timeLeft) / timeoutLimit) * 80;
 
         timerBar.style.width = `${percentageWidth}%`;
 
-        if (timeLeft <= 10000) {
+        if (timeLeft <= 5000) {
             timerBar.classList.add('red');
         }
 
         if (timeLeft <= 0) {
             displayMessage('Time up! -100 points', true);
-            score-=100;
+            score -= 100;
             hasScoredThisRound = true;
+            submitCardChoice(cards[0].card_id, true);
 
             var link = document.querySelector('.next.round');
             if (link.classList.contains('disabled')) {
                 link.classList.remove('disabled');
-              //   link.href = "your-next-page.html";
-                link.removeAttribute('onclick'); // Remove the onclick attribute that prevents clicking
+                link.removeAttribute('onclick');
             }
-            
+
             clearInterval(timerInterval);
         }
     }, 1000);
 }
 
 function resetTimer() {
-    clearInterval(timerInterval); // Clear existing timer if any
-    hasScoredThisRound = false; // Reset the scoring flag
-}
-
-function automaticCardFlip() {
-
-    if (!hasScoredThisRound) {
-        score -= 100; // Deduct points automatically
-        updateScoreDisplay();
-        displayMessage('Time up! -100 points', true);
-        // flipCard(cardToFlip);
-    }
+    clearInterval(timerInterval);
+    hasScoredThisRound = false;
 }
 
 function showSpiders() {
     const container = document.getElementById('spider-cards');
-    container.innerHTML = ''; // Clear previous cards
+    container.innerHTML = '';
 
-    for (let i = currentSpiderIndex; i < currentSpiderIndex + 2; i++) {
-        if (i < spiders.length) {
-            const spider = spiders[i];
-            const cardColor = spider.venomous ? 'red' : 'green'; // Determine color based on venomous property
-            container.innerHTML += `
-                <section class="card" onclick="flipCard(this)">
-                    <img src="${spider.image}" alt="${spider.name}">
-                </section>
-                <section class="card cardAnswer" style="display: none; background-color: ${cardColor};">
-                    <p class="card-details">
-                        <section class="cardAnswer-header">${spider.name}</section><br>
-                        ${spider.description}
-                    </p>
-                </section>
-            `;
-        }
+    for (let i = 0; i < cards.length; i++) {
+        const spider = cards[i];
+        const cardColor = spider.toxicity_rating > 0 ? 'red' : 'green'; // Determine color based on toxicity_rating property
+        container.innerHTML += `
+            <section class="card" onclick="flipCard(this, ${spider.card_id}, ${spider.toxicity_rating > 0})">
+                <img src="${spider.image_url}" alt="${spider.name}">
+            </section>
+            <section class="card cardAnswer" style="display: none; background-color: ${cardColor};">
+                <p class="card-details">
+                    <section class="cardAnswer-header">${spider.name}</section><br>
+                    ${spider.description}
+                </p>
+            </section>
+        `;
     }
 
     updateNavigation();
 }
 
-
-// function showNextPair() {
-//     currentSpiderIndex += 2;
-//     if (currentSpiderIndex >= spiders.length) {
-//         currentSpiderIndex = 0; // Restart or handle as needed
-//     }
-    
-//     resetTimer(); // Ensure the old timer is stopped and reset visually
-//     showSpiders();
-//     var link = document.querySelector('.next.round');
-//     if (!link.classList.contains('disabled')) {
-//         link.classList.add('disabled');
-//     }
-//     startTimer(); 
-// }
 function showNextPair() {
-    currentSpiderIndex += 2;
-
-    // Check if we're at the last pair of images
-    if (currentSpiderIndex >= spiders.length - 2) {
-        // Change button text to "Result" and adjust click functionality
-        const nextButton = document.querySelector('.next.round');
-        nextButton.textContent = 'Result';
-        nextButton.onclick = displayResult; // Change onclick event to display results
-    } else if (currentSpiderIndex >= spiders.length) {
-        // Reset or handle as needed if beyond the last page
-        currentSpiderIndex = 0;
-        showSpiders();
-        resetTimer();
-        startTimer();
-        return;
-    }
-
-    showSpiders();
+    getNextCardPair();
     resetTimer();
-    startTimer();
+    var link = document.querySelector('.next.round');
+    if (!link.classList.contains('disabled')) {
+        link.classList.add('disabled');
+    }
 }
 
 function displayResult() {
@@ -138,104 +171,87 @@ function displayResult() {
     `;
 }
 
-
 function updateNavigation() {
     const pageNumber = document.querySelector('.page-number');
-    pageNumber.textContent = `${(currentSpiderIndex / 2) + 1} / ${Math.ceil(spiders.length / 2)}`;
+    pageNumber.textContent = `Round ${currentRound}`;
 }
 
-function flipCard(element) {
+function flipCard(element, cardId, isVenomous) {
     var card = element;
     var card2 = element.nextElementSibling;
 
-        // Stop the timer when a card is selected
+
     clearInterval(timerInterval);
-    
-    // Flipping the original card to show the backside
+
+
     card.style.transform = 'rotateY(180deg)';
     card.style.opacity = '0';
     card.style.display = 'none';
     card2.style.display = 'block';
-    
-    // Setting a short delay to flip the new card after the original card has flipped
+
+
     setTimeout(function() {
         card2.style.transform = 'rotateY(0deg)';
         card2.style.opacity = '1';
-      }, 300); // Half the duration of the flip so it seems to flip at the same time
+    }, 300);
 
-      var link = document.querySelector('.next.round');
-      if (link.classList.contains('disabled')) {
-          link.classList.remove('disabled');
-        //   link.href = "your-next-page.html";
-          link.removeAttribute('onclick'); // Remove the onclick attribute that prevents clicking
-      }
-
-      const spiderIndex = [...document.querySelectorAll('.card')].indexOf(element);
-      const spider = spiders[spiderIndex];
-      console.log(spiders[spiderIndex]);
-      
-  
-      if (!hasScoredThisRound) {
-        // Update the score only if it hasn't been updated this round
-        if (spider.venomous) {
-            score -= 100;
-            displayMessage('Kiss of Death -100', true);
-        } else {
-            score += 100;
-            displayMessage('You Get to Live Another Round +100', false);
-        }
-        
-        hasScoredThisRound = true; // Set the flag indicating score has been updated
-        updateScoreDisplay();
+    var link = document.querySelector('.next.round');
+    if (link.classList.contains('disabled')) {
+        link.classList.remove('disabled');
+        link.removeAttribute('onclick');
     }
 
-    console.log("score is "+score);
+    if (!hasScoredThisRound) {
+        submitCardChoice(cardId, false);
+    }
 
-    // Update the displayed score
     updateScoreDisplay();
+}
 
+function displayMessage(text, isPositive) {
+    const message = document.createElement('div');
+    message.style.position = 'fixed';
+    message.style.top = '10%';
+    message.style.left = '0';
+    message.style.width = '100%';
+    message.style.textAlign = 'center';
+    message.style.color = isPositive ? 'green' : 'red';
+    message.style.fontSize = '2rem';
+    message.style.fontWeight = 'bold';
+    message.style.zIndex = '1000';
+    message.textContent = text;
+    document.body.appendChild(message);
+
+    // Animation
+    message.animate([
+        { opacity: 0 },
+        { opacity: 1, offset: 0.1 },
+        { opacity: 1, offset: 0.9 },
+        { opacity: 0 }
+    ], {
+        duration: 3000,
+        easing: 'ease-in-out'
+    });
+
+    // Remove message after 3 seconds
+    setTimeout(() => {
+        message.remove();
+    }, 3000);
+}
+
+function updateScore(scoreChange) {
+    score += scoreChange;
+    updateScoreDisplay();
+}
+
+function updateScoreDisplay() {
+    const scoreElement = document.getElementById('score'); //insert score HTML 
+    if (scoreElement) {
+        scoreElement.textContent = `Score: ${score}`;
     }
+}
 
-    function displayMessage(text, isVenomous) {
-        const message = document.createElement('div');
-        message.style.position = 'fixed';
-        message.style.top = '10%';
-        message.style.left = '0';
-        message.style.width = '100%';
-        message.style.textAlign = 'center';
-        message.style.color = isVenomous ? 'red' : 'green';
-        message.style.fontSize = '2rem';
-        message.style.fontWeight = 'bold';
-        message.style.zIndex = '1000';
-        message.textContent = text;
-        document.body.appendChild(message);
-
-        // Animation
-        message.animate([
-            { opacity: 0 },
-            { opacity: 1, offset: 0.1 },
-            { opacity: 1, offset: 0.9 },
-            { opacity: 0 }
-        ], {
-            duration: 3000,
-            easing: 'ease-in-out'
-        });
-
-        // Remove message after 3 seconds
-        setTimeout(() => {
-            message.remove();
-        }, 3000);
-    }
-
-    //function for displaying 
-    function updateScoreDisplay() {
-        const scoreElement = document.getElementById('score'); // Ensure you have a score element in your HTML
-        if (scoreElement) {
-            scoreElement.textContent = `Score: ${score}`;
-        }
-    }
-
-    window.onload = function() {
-        initializeDisplay();
-        updateScoreDisplay(); // Initial score update
-    }
+window.onload = function() {
+    initializeDisplay();
+    updateScoreDisplay(); // Initial score update
+}

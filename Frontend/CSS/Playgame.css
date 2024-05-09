@@ -1,0 +1,304 @@
+/* style.css */
+:root {
+    --background-image: url('../assets/background.png');
+    --background-size: cover;
+    --background-position: center;
+    /* Add other variables as needed */
+  }
+  
+  body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    height: 100vh;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    background-image: var(--background-image);
+    background-size: var(--background-size);
+    background-position: var(--background-position);
+    padding: 0 20px;
+    overflow: hidden;
+    
+  }
+  
+  .navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    padding: 0rem 2rem;
+  }
+  
+  .nave {
+    border: none;
+    width: 100%;
+    height: auto;
+    display: block;
+    overflow: hidden;
+    padding: 1%;
+  }
+  
+
+.card-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px; /* Adjust perspective as needed */
+  }
+  
+  .card {
+    width: 270px; /* Adjust card width */
+    height: 390px; /* Adjust card height */
+    cursor: pointer;
+    transition: all 0.5s ease-out;
+    margin-top: 20vh;
+  }
+  
+  .card-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px; /* Adjust card border radius */
+    box-shadow: 0 10px 40px 2px rgba(0, 0, 0, 0.4); /* Adjust box shadow */
+    transform-origin: center;
+    transition: transform 0.8s ease;
+    transform-style: preserve-3d;
+    position: relative;
+    transform: perspective(1000px) rotateX(35deg) rotateY(4deg) rotateZ(-30deg);
+  }
+  
+  .card:hover .card-inner {
+    animation: unset;
+    margin-top: 18vh;
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  
+  .card-front,
+  .card-back {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px; /* Adjust border radius */
+    position: absolute;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em;
+    color: white;
+  }
+  
+  .card-front {
+    background-color: #282828;
+    text-align: center;
+  }
+  
+  .card-back {
+    background-color: #1e1e1e;
+    transform: rotateY(180deg);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 1.1em;
+  }
+  
+  .card-front header,
+  .card-back header {
+    margin-bottom: 1em;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #faaca8; /* Adjust header color */
+    margin-top: -0.20em;
+  }
+ 
+  
+  .card-front figure {
+    margin: 0;
+    width: 100%;
+    border-radius: 12px; /* Adjust border radius */
+  }
+  
+  .card-front img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px; /* Adjust border radius */
+    object-fit: cover;
+  }
+  
+  .card:hover .card-inner {
+    animation: unset;
+    transform: rotateY(180deg);
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      margin-top: 20vh;
+    }
+    50% {
+      margin-top: 18vh;
+    }
+  }
+  .card-back {
+    background-color: #1e1e1e;
+    transform: rotateY(180deg);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 5em; /* Adjust padding as needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .card-back header {
+    margin-bottom: 0.5em;
+    font-size: 1.2em; /* Adjust font size as needed */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #faaca8;
+  }
+  
+  .card-back .info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    text-align: left;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 0.5em;
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  .card-back .info p {
+    font-size: 0.9em;
+    color: #e0e0e0;
+  }
+  
+  .card-back .info p strong {
+    color: #faaca8;
+    font-weight: bold;
+  }
+  
+  .card-back .game-stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5em;
+    font-size: 0.9em;
+  }
+  
+  .card-back .stat {
+    flex: 1;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 0.4em;
+    color: #ddd6f3;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+    text-align: center;
+  }
+  
+  .card-back .stat p strong {
+    display: block;
+    margin-bottom: 0.2em;
+    color: #faaca8;
+  }
+  
+
+footer {
+    position: fixed;
+    left: 5%;
+    bottom: 0;
+    width: 100%;
+    color: rgb(15, 15, 15); 
+    padding: 10px 0; 
+  }
+  h1 {
+    color: #6a0d0d; 
+    text-align: right; 
+    margin: 10px; 
+    position: relative; 
+    top: 20%; 
+    right: 0; 
+  }
+  @media only screen and (max-width: 768px) {
+    .card {
+      width: calc(50% - 20px); 
+      max-width: 300px; 
+      height: auto; 
+      margin: 10px; 
+    }
+  }
+  .next-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: black;
+    color: #a10606;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: fixed;
+    
+  }
+  .nextbutton {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .nextbutton {
+      position: static;
+      margin-top: 20px;
+    }
+  }
+  .next-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #b40e0e; /* Red background color */
+    color: #fff; /* White text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .next-button:hover {
+    background-color: #b40e0e; /* Darker red on hover */
+  }
+  .game-info {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    color: #fff;
+  }
+  
+  .timer,
+  .score {
+    margin-bottom: 10px;
+  }
+  
+  .timer span,
+  .score span {
+    font-weight: bold;
+  }
+  
+  .timer {
+    background-color: #333;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .score {
+    background-color: #333;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }

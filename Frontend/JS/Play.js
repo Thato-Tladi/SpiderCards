@@ -239,3 +239,6 @@ function flipCard(element) {
         initializeDisplay();
         updateScoreDisplay(); // Initial score update
     }
+    function toggleCardFlip(card) {
+        card.querySelector('.card-inner').classList.toggle('is-flipped');
+      }

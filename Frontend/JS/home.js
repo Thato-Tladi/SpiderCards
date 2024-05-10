@@ -25,8 +25,8 @@ function updateLeaderboard() {
             let row = tbody.insertRow();
             let nameCell = row.insertCell(0);
             let scoreCell = row.insertCell(1);
-            nameCell.textContent = '2';
-            scoreCell.textContent = '100';
+            nameCell.textContent = '0';
+            scoreCell.textContent = '0';
         } else {
             data.leaderboard.forEach(player => {
                 let row = tbody.insertRow();
@@ -38,12 +38,6 @@ function updateLeaderboard() {
         }
     })
     .catch(error => {
-        // Display error message
-        let row = tbody.insertRow();
-        let nameCell = row.insertCell(0);
-        let scoreCell = row.insertCell(1);
-        nameCell.textContent = '566';
-        scoreCell.textContent = '100';
         console.error('Error:', error);
     });
 }

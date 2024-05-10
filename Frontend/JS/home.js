@@ -1,7 +1,7 @@
 function updateLeaderboard() {
     const tbody = document.querySelector('#leaderboard tbody');
     const bearerToken = localStorage.getItem('access_token');
-
+ 
     // Fetch leaderboard data
     fetch('http://spidercards-app.eu-west-1.elasticbeanstalk.com/api/game/leaderboard', {
         method: 'GET',
@@ -19,7 +19,7 @@ function updateLeaderboard() {
     .then(data => {
         // Clear current entries
         tbody.innerHTML = '';
-
+ 
         // Populate leaderboard table
         if (data.leaderboard == null) {
             let row = tbody.insertRow();
@@ -32,7 +32,7 @@ function updateLeaderboard() {
                 let row = tbody.insertRow();
                 let userIdCell = row.insertCell(0); // Change variable name to userIdCell
                 let scoreCell = row.insertCell(1);
-                userIdCell.textContent = player.user_id; // Change to user_id
+                userIdCell.textContent = "avenger "+player.user_id; // Change to user_id
                 scoreCell.textContent = player.total_score; // Keep total_score
             });
         }
@@ -47,8 +47,7 @@ function updateLeaderboard() {
         console.error('Error:', error);
     });
 }
-
-
+ 
+ 
 // Call the function to update leaderboard when the page loads
 updateLeaderboard();
-

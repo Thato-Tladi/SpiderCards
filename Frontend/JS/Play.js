@@ -164,7 +164,7 @@ function showSpiders() {
             <section class="card cardAnswer" style="display: none; background-color: ${cardColor};">
                 <p class="card-details">
                     <section class="cardAnswer-header">${spider.name}</section><br>
-                    ${spider.description}
+                    <article style="margin-top: 15vh;font-size: 2rem;">${spider.description}<article>
                 </p>
             </section>
         `;
@@ -189,7 +189,8 @@ function displayResult() {
     mainContent.innerHTML = `
         <h2 class="animated-text">You ${score > 0 ? 'won' : 'lost'} ${Math.abs(score)} points</h2>
         <video src="${videoFile}" autoplay loop></video>
-        <button><a href="index.html">Home</button>
+        <br>
+        <a href="index.html" class="next round">Home &raquo;</a>
     `;
 }
 

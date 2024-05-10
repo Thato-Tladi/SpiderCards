@@ -20,7 +20,7 @@ header {
 
 h1 {
     color: red;
-    font-size: 24px;
+    font-size: 100px;
 }
 
 .profile {
@@ -109,7 +109,16 @@ main {
 }
 
 .round-number {
-    margin-left: 80%;
+    font-weight: bold;
+    color:rgb(174, 38, 38);
+    font-size: 20px;
+    position: absolute;
+    background-color:whitesmoke;
+    top: -25px; /* Adjust top position */
+    right: 98px; /* Adjust right position */
+    margin-bottom: 10px;
+    padding: 2px 8px;
+    border-radius: 5px;
 }
 
 a {
@@ -209,8 +218,15 @@ button:enabled {
 }
 
 h1 {
+   
+
     color: rgb(174, 38, 38);
     font-family: Arial, sans-serif;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 60px;
+    font-size: 28px;
 }
 
 /* Base styles */
@@ -300,17 +316,17 @@ main{
     align-items: flex-end;
     color: #fff;
   }
-
-  .score {
-    margin-bottom: 10px;
-  }
   
   .score span {
     font-weight: bold;
   } 
   
   .score {
-    background-color: #333;
-    padding: 5px 10px;
+    background-color:whitesmoke;
+    color:rgb(174, 38, 38);
     border-radius: 5px;
+    right: 120px;
+    margin-bottom: 300em;
+    padding: 2px 9px;
+    position: absolute;
   }

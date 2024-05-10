@@ -1,6 +1,5 @@
-// data/models/UserStats.js
 const { DataTypes } = require('sequelize');
-
+ 
 module.exports = (sequelize) => {
   const UserStats = sequelize.define(
     'UserStats',
@@ -35,6 +34,13 @@ module.exports = (sequelize) => {
       timestamps: false
     }
   );
-
+ 
+  UserStats.associate = (models) => {
+    UserStats.belongsTo(models.User, {
+      foreignKey: 'user_id',
+    });
+  };
+ 
+ 
   return UserStats;
 };

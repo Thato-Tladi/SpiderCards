@@ -105,7 +105,7 @@ main {
     opacity: 0;
   }
   .cardAnswer-header {
-    font-size: 5vw;
+    font-size: 3rem;
 }
 
 .round-number {
@@ -186,7 +186,6 @@ button:enabled {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
 }
 
 .navigation button {
@@ -239,7 +238,7 @@ h1 {
     color: red;
 }
 h2 {
-    font-size: 2vw; /* Adjust font size based on the width of the viewport */
+    font-size: 4vw; /* Adjust font size based on the width of the viewport */
 }
 
 /* Responsive profile and navigation elements */
@@ -266,7 +265,9 @@ h2 {
     background-color: inherit; /* Ensure cardAnswer inherits the background */
 }
 
-
+video {
+    width: 50%;
+}
 
 @media (max-width: 600px) {
     .card, .cardAnswer {
@@ -276,14 +277,17 @@ h2 {
 
 .nave {
     border: none;
-    width: 100%;
-    height: auto; /* Adjust height automatically based on content */
+    width: 95%; /* Set width to 80% of the page */
+    margin: 0 auto; /* Center the nave horizontally */
+    height: 10%; /* Adjust height automatically based on content */
     display: block; /* Ensure it takes full width */
     overflow: hidden; /* Hide any content that overflows the container */
-    padding: 10px;
+    padding: 1px;
+    min-height: 27vh;
   }
 
 main{
     flex: 1;
-    padding: 20px;
+    padding: 2rem;
+    margin-top: -10%;
 }

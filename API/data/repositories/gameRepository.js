@@ -47,9 +47,15 @@ const recordUserGameHistory = async (userId, score) => {
 
 const getLeaderboard = async (limit = 10) => {
   return await UserStats.findAll({
-    attributes: ['user_id', 'total_score'],
+    attributes: ['user_id', 'total_score', 'total_games_played'],
     order: [['total_score', 'DESC']],
-    limit
+    limit,
+    include: [
+      {
+        model: User,
+        attributes: ['username'],
+      },
+    ],
   });
 };
 

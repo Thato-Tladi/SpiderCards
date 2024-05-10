@@ -112,12 +112,13 @@ h1 {
 
 .nave {
     border: none;
-    width: 100%;
-    height: auto; /* Adjust height automatically based on content */
+    width: 95%; /* Set width to 80% of the page */
+    margin: 0 auto; /* Center the nave horizontally */
+    height: 10%; /* Adjust height automatically based on content */
     display: block; /* Ensure it takes full width */
     overflow: hidden; /* Hide any content that overflows the container */
-    padding: 10px;
-    background-color: white;
+    padding: 1px;
+    min-height: 27vh;
   }
 
  

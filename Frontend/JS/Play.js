@@ -25,7 +25,10 @@ function getNextCardPair() {
         showSpiders();
         startTimer();
     })
-    .catch(error => console.error('Error fetching card pairs:', error));
+    .catch(error => {
+        console.error('Error fetching card pairs:', error);
+        window.location.href = 'Error.html';
+    });
 }
 
 function submitCardChoice(cardId, isTimeout = false) {
@@ -56,7 +59,17 @@ function submitCardChoice(cardId, isTimeout = false) {
             }
         }
     })
-    .catch(error => console.error('Error submitting card choice:', error));
+    .catch(error => {
+        console.error('Error submitting card choice:', error);
+        window.location.href = 'Error.html';
+    });
+}
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+    }
 }
 
 function updateSessionInfo() {
@@ -72,7 +85,10 @@ function updateSessionInfo() {
         currentRound = data.current_round;
         updateScoreDisplay();
     })
-    .catch(error => console.error('Error fetching session info:', error));
+    .catch(error => {
+        console.error('Error fetching session info:', error);
+        window.location.href = 'Error.html';
+    });
 }
 
 function endGameSession() {
@@ -87,7 +103,11 @@ function endGameSession() {
     .then(data => {
         displayResult();
     })
-    .catch(error => console.error('Error ending game session:', error));
+    .catch(error => {
+        console.error('Error ending game session:', error);
+        window.location.href = 'Error.html';
+    });
+    
 }
 
 function startTimer() {
@@ -108,7 +128,6 @@ function startTimer() {
         }
 
         if (timeLeft <= 0) {
-            displayMessage('Time up! -100 points', true);
             score -= 100;
             hasScoredThisRound = true;
             submitCardChoice(cards[0].card_id, true);
@@ -133,9 +152,11 @@ function showSpiders() {
     const container = document.getElementById('spider-cards');
     container.innerHTML = '';
 
+    shuffle(cards);
+
     for (let i = 0; i < cards.length; i++) {
         const spider = cards[i];
-        const cardColor = spider.toxicity_rating > 0 ? 'red' : 'green'; // Determine color based on toxicity_rating property
+        const cardColor = spider.type_id == 1 ? 'red' : 'green'; // Determine color based on toxicity_rating property
         container.innerHTML += `
             <section class="card" onclick="flipCard(this, ${spider.card_id}, ${spider.toxicity_rating > 0})">
                 <img src="${spider.image_url}" alt="${spider.name}">
@@ -143,7 +164,7 @@ function showSpiders() {
             <section class="card cardAnswer" style="display: none; background-color: ${cardColor};">
                 <p class="card-details">
                     <section class="cardAnswer-header">${spider.name}</section><br>
-                    ${spider.description}
+                    <article style="margin-top: 15vh;font-size: 2rem;">${spider.description}<article>
                 </p>
             </section>
         `;
@@ -168,6 +189,8 @@ function displayResult() {
     mainContent.innerHTML = `
         <h2 class="animated-text">You ${score > 0 ? 'won' : 'lost'} ${Math.abs(score)} points</h2>
         <video src="${videoFile}" autoplay loop></video>
+        <br>
+        <a href="index.html" class="next round">Home &raquo;</a>
     `;
 }
 

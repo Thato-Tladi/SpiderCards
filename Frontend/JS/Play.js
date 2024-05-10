@@ -5,7 +5,7 @@ let currentRound = 1;
 let sessionId = sessionStorage.getItem('sessionId');
 let cards = [];
 const baseUrl = 'http://spidercards-app.eu-west-1.elasticbeanstalk.com/api/game';
-const timeoutLimit = 10000; // 10 seconds
+const timeoutLimit = 30000; // 10 seconds
 
 function initializeDisplay() {
     getNextCardPair();
@@ -20,6 +20,7 @@ function getNextCardPair() {
     })
     .then(response => response.json())
     .then(data => {
+        // loader.style.display = 'none'; // Hide loader
         cards = data.cards;
         currentRound = data.current_round;
         showSpiders();
@@ -52,11 +53,8 @@ function submitCardChoice(cardId, isTimeout = false) {
         if (data.finalRound) {
             displayResult();
         } else {
-            var link = document.querySelector('.next.round');
-            if (link.classList.contains('disabled')) {
-                link.classList.remove('disabled');
-                link.removeAttribute('onclick');
-            }
+            var button = document.getElementById('next');
+            button.disabled = false;
         }
     })
     .catch(error => {
@@ -111,37 +109,41 @@ function endGameSession() {
 }
 
 function startTimer() {
-    const timerBar = document.getElementById('timer-bar');
-    timerBar.style.width = '0%';
-    timerBar.classList.remove('red');
+    const timerDisplay = document.getElementById('timer-display');
+    timerDisplay.classList.remove('red');
     let startTime = Date.now();
 
     timerInterval = setInterval(function() {
         let elapsedTime = Date.now() - startTime;
         let timeLeft = timeoutLimit - elapsedTime;
-        let percentageWidth = ((timeoutLimit - timeLeft) / timeoutLimit) * 80;
+        let secondsLeft = Math.floor(timeLeft / 1000);
+        let minutes = Math.floor(secondsLeft / 60);
+        let seconds = secondsLeft % 60;
 
-        timerBar.style.width = `${percentageWidth}%`;
+        // Update digital display
+        timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-        if (timeLeft <= 5000) {
-            timerBar.classList.add('red');
+        // Change background color to red when time is below 10 seconds
+        if (timeLeft <= 10000) {
+            timerDisplay.classList.add('red');
+        } else {
+            timerDisplay.classList.remove('red');
         }
 
         if (timeLeft <= 0) {
-            score -= 100;
-            hasScoredThisRound = true;
-            submitCardChoice(cards[0].card_id, true);
-
-            var link = document.querySelector('.next.round');
-            if (link.classList.contains('disabled')) {
-                link.classList.remove('disabled');
-                link.removeAttribute('onclick');
-            }
-
             clearInterval(timerInterval);
+            score -= 100; // deduct score as before
+            hasScoredThisRound = true;
+            submitCardChoice(cards[0].card_id, true); // Auto-submit the first card
+
+            var button = document.getElementById('next');
+            button.disabled = false;
+
+            timerDisplay.classList.remove('red');
         }
     }, 1000);
 }
+
 
 function resetTimer() {
     clearInterval(timerInterval);
@@ -151,6 +153,11 @@ function resetTimer() {
 function showSpiders() {
     const container = document.getElementById('spider-cards');
     container.innerHTML = '';
+
+    var button = document.getElementById('next');
+    if (!button.disabled) {
+        button.disabled = true;
+    }
 
     shuffle(cards);
 
@@ -174,12 +181,13 @@ function showSpiders() {
 }
 
 function showNextPair() {
+    
+    var button = document.getElementById('next');
+    if (!button.disabled) {
+        button.disabled = true;
+    }
     getNextCardPair();
     resetTimer();
-    var link = document.querySelector('.next.round');
-    if (!link.classList.contains('disabled')) {
-        link.classList.add('disabled');
-    }
 }
 
 function displayResult() {

@@ -132,43 +132,53 @@ a {
     border-radius: 50%;
   }
 
-  .next.round {
+/* Styles for the enabled state of the button */
+.next.round {
     padding: 8px 15px;
     background-color: #4CAF50; /* Lighter shade for the enabled state */
     color: white;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
     font-size: 16px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    display: inline-block; /* Ensures proper spacing and positioning */
 }
 
-.next.round.disabled {
+/* Styles for the disabled state of the button */
+.next.round[disabled] {
     background-color: #2a4d32; /* Darker shade for the disabled state */
-    cursor: default;
-    opacity: 0.5;
-    pointer-events: none; /* Prevents clicking on the link */
+    cursor: not-allowed; /* Changes cursor to indicate non-interactivity */
+    opacity: 0.5; /* Dulls the button to suggest it's inactive */
+    pointer-events: none; /* Prevents all mouse events on the button */
 }
+
 
 
 .timer-bar {
-    position: absolute;
-    left: 10%;
-    min-height: 1vh;
-    width: 0%;
-    background-color: green;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.timer-display {
+    padding: 10px;
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    background-color: green; /* Start with green background */
+    border: none;
+    cursor: pointer;
     transition: background-color 0.3s ease-in-out;
- 
+    width: 150px; /* Set the width of the button */
+}
+
+.timer-display.red {
+    background-color: red; /* Changes to red when time is low */
 }
 
 
-
-.timer-bar.red {
-    background-color: red; /* Change to red in the last 10 seconds */
-}
 
 
 
@@ -263,8 +273,12 @@ h2 {
 }
 
 video {
-    width: 50%;
+    width: 100%;      /* Full width of its container */
+    height: 50vh;     /* 50% of the viewport height */
+    display: block;   /* Ensures it doesn't inherit any inline styling */
+    margin: 0 auto;   /* Centers the video if the container is wider */
 }
+
 
 @media (max-width: 600px) {
     .card, .cardAnswer {
@@ -288,3 +302,18 @@ main{
     padding: 2rem;
     margin-top: -10%;
 }
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid red;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  

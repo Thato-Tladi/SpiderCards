@@ -13,17 +13,17 @@
     <main>
         <h2 class="animated-text">PICK YOUR BITE</h2>
         
-        <section id="timer-bar" class="timer-bar"></section>
-
-        <!-- <section id="score" class="score-display">Score: 0</section> -->
+        <section id="timer-bar" class="timer-bar">
+            <button id="timer-display" class="timer-display">00:00</button>
+        </section>
+          
 
         <section class="card-container" id="spider-cards">
             <div id="loader" class="loader" style="display: none;"></div>
         </section>
         <section class="navigation">
-            <button class="next" id="next" onclick="showNextPair()"><a href="#" class="next round disabled" onclick="return false;">Next &raquo;</a>
-            </button>
-        </section>
+            <button id="next" class="next round" onclick="showNextPair()" disabled>Next &raquo;</button>
+        </section>        
         <section class="round-number">
             <span class="page-number"></span>
         </section>

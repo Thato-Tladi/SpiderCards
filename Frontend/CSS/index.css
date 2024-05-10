@@ -14,9 +14,9 @@ body, html {
     align-items: center;
     justify-content: center;
     height: 90%;
-    width: 100%;
     flex: 1;
     padding: 1px;
+    margin-top: -7vh;
 }
 
 header h1 {

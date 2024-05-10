@@ -32,7 +32,7 @@ function updateLeaderboard() {
                 let row = tbody.insertRow();
                 let userIdCell = row.insertCell(0); // Change variable name to userIdCell
                 let scoreCell = row.insertCell(1);
-                userIdCell.textContent = player.user_id; // Change to user_id
+                userIdCell.textContent = "Avenger "+player.user_id; // Change to user_id
                 scoreCell.textContent = player.total_score; // Keep total_score
             });
         }

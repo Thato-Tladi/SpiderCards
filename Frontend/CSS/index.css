@@ -16,18 +16,18 @@ body, html {
     height: 100%;
     width: 100%;
     flex: 1;
-    padding: 20px;
+    padding: 2rem;
 }
 
 header h1 {
-    margin-top: 2vh;
-    font-size: 3vw; /* Responsive font size */
+    margin-top: -6vh;
+    font-size: 3vw;
     text-align: center;
     justify-content: center;
 }
 
 main {
-    width: 80%; /* Taking up 80% of the container width */
+    width: 80%;
     margin-top: 1em;
 }
 
@@ -39,38 +39,38 @@ main {
     color: white;
     cursor: pointer;
     border-radius: 0.5em;
-    display: block; /* Allows for centering */
-    margin: 0 auto; /* Center button in the container */
+    display: block;
+    margin: 0 auto;
     margin-top: 5vh;
 }
 
 #leaderboard {
     
     margin-top: 9vh;
-    background:gainsboro; /* Semi-transparent background */
+    background:gainsboro;
     border-radius: 0.5em;
     padding: 1em;
     width: 90%;
-    color: Black; /* Ensuring text is white */
-    text-align: center; /* Center-align text in table cells */
+    color: Black;
+    text-align: center;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    background: transparent; /* Table background transparency */
+    background: transparent;
 }
 
 th, td {
     border: 1px solid #ffffff;
-    text-align: center; /* Center-align text in table cells */
-    padding: 0.5em; /* Spacing inside cells */
-    color: green; /* Green text for better readability and theme matching */
-    font-size: 1.2rem; /* Larger text for better visibility */
+    text-align: center;
+    padding: 0.5em;
+    color: green;
+    font-size: 1.2rem;
 }
 
 th {
-    color: black; /* Red color for header to differentiate and add to theme */
+    color: black;
 }
 
 .navbar {
@@ -112,11 +112,11 @@ h1 {
 
 .nave {
     border: none;
-    width: 95%; /* Set width to 80% of the page */
-    margin: 0 auto; /* Center the nave horizontally */
-    height: 10%; /* Adjust height automatically based on content */
-    display: block; /* Ensure it takes full width */
-    overflow: hidden; /* Hide any content that overflows the container */
+    width: 95%;
+    margin: 0 auto;
+    height: 10%;
+    display: block;
+    overflow: hidden;
     padding: 1px;
     min-height: 27vh;
   }

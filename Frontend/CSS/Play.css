@@ -232,37 +232,34 @@ header, .navbar {
     background-color: #fff;
 }
 
-/* Responsive text sizes */
 h1 {
-    font-size: 3vw; /* Adjust font size based on the width of the viewport */
+    font-size: 3vw;
     color: red;
 }
 h2 {
-    font-size: 4vw; /* Adjust font size based on the width of the viewport */
+    font-size: 2vw;
 }
 
-/* Responsive profile and navigation elements */
 .profile, .navigation button {
     cursor: pointer;
-    font-size: calc(10px + 1vw); /* Make font size responsive */
+    font-size: calc(10px + 1vw);
 }
 
-/* Adjustments for the card containers */
 .card-container {
     display: flex;
-    flex-wrap: wrap; /* Allows cards to wrap on smaller screens */
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 2%; /* Smaller gap for better spacing on smaller screens */
+    gap: 2%;
     padding: 2% 0;
 }
 
 .card, .cardAnswer {
-    flex: 1 1 45%; /* Each card takes up roughly half the width on larger screens */
+    flex: 1 1 45%;
     margin-top: 2%;
-    height: 40vh; /* Smaller minimum height for smaller screens */
+    height: 40vh;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
-    background-color: inherit; /* Ensure cardAnswer inherits the background */
+    background-color: inherit;
 }
 
 video {
@@ -271,17 +268,17 @@ video {
 
 @media (max-width: 600px) {
     .card, .cardAnswer {
-        flex: 1 1 90%; /* On smaller screens, make each card take nearly full width */
+        flex: 1 1 90%;
     }
 }
 
 .nave {
     border: none;
-    width: 95%; /* Set width to 80% of the page */
-    margin: 0 auto; /* Center the nave horizontally */
-    height: 10%; /* Adjust height automatically based on content */
-    display: block; /* Ensure it takes full width */
-    overflow: hidden; /* Hide any content that overflows the container */
+    width: 95%;
+    margin: 0 auto;
+    height: 10%;
+    display: block;
+    overflow: hidden;
     padding: 1px;
     min-height: 27vh;
   }

@@ -13,6 +13,8 @@ function initializeDisplay() {
 
 function getNextCardPair() {
     const url = `${baseUrl}/session/${sessionId}/cards`;
+    const loader = document.getElementById('loader');
+    loader.style.display = 'block'; // Show loader
     fetch(url, {
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('access_token')}`
@@ -20,12 +22,14 @@ function getNextCardPair() {
     })
     .then(response => response.json())
     .then(data => {
+        loader.style.display = 'none'; // Hide loader
         cards = data.cards;
         currentRound = data.current_round;
         showSpiders();
         startTimer();
     })
     .catch(error => {
+        loader.style.display = 'none'; // Hide loader in case of error
         console.error('Error fetching card pairs:', error);
         window.location.href = 'Error.html';
     });
@@ -151,6 +155,11 @@ function resetTimer() {
 function showSpiders() {
     const container = document.getElementById('spider-cards');
     container.innerHTML = '';
+
+    var link = document.querySelector('.next.round');
+    if (!link.classList.contains('disabled')) {
+        link.classList.add('disabled');
+    }
 
     shuffle(cards);
 

@@ -1,9 +1,9 @@
-import { auth, gameInit} from "./api.js";
+import { auth, gameInit } from "./api.js";
 document.addEventListener('DOMContentLoaded', function() {
     const config = {
         domain: "dev-rl7aax8fm51txbjk.us.auth0.com",
         client_id: "Pftm1IeOZCzd0miQXZdlZM8tFu8uBBOB",
-        redirect_uri: "http://spidercards-frontend-20240508.s3-website-eu-west-1.amazonaws.com",
+        redirect_uri: "http://localhost:8080",
         audience: "https://spider-cards.co.za",
         scope: "openid profile email",
         nonce: "some_nonce"

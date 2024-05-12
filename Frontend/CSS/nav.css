@@ -48,7 +48,7 @@
   top: 0;
   left: 0;
   margin: 60px;
-  font-size: 28px;
+  font-size: 2vw;
  }
  
 .navbar {
@@ -96,5 +96,6 @@ img:hover {
     height: 30%; /* Full height of the viewport */
     background-color: #333;
     color: white;
+    font-size: 2vw;
    }  
  

@@ -24,7 +24,6 @@ function getNextCardPair() {
         cards = data.cards;
         currentRound = data.current_round;
         showSpiders();
-        startTimer();
     })
     .catch(error => {
         console.error('Error fetching card pairs:', error);
@@ -132,14 +131,13 @@ function startTimer() {
 
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
+            timerDisplay.textContent = "00:00";
             score -= 100; // deduct score as before
             hasScoredThisRound = true;
             submitCardChoice(cards[0].card_id, true); // Auto-submit the first card
 
             var button = document.getElementById('next');
             button.disabled = false;
-
-            timerDisplay.classList.remove('red');
         }
     }, 1000);
 }
@@ -152,7 +150,13 @@ function resetTimer() {
 
 function showSpiders() {
     const container = document.getElementById('spider-cards');
-    container.innerHTML = '';
+    container.innerHTML = '<div class="loader"></div>';
+
+    const timer = document.getElementById('timer-display');
+    const next = document.getElementById('next');
+    const pick = document.getElementById('animated-text');
+
+    timer.style.display = next.style.display = pick.style.display = 'none';
 
     var button = document.getElementById('next');
     if (!button.disabled) {
@@ -161,24 +165,53 @@ function showSpiders() {
 
     shuffle(cards);
 
-    for (let i = 0; i < cards.length; i++) {
-        const spider = cards[i];
-        const cardColor = spider.type_id == 1 ? 'red' : 'green'; // Determine color based on toxicity_rating property
-        container.innerHTML += `
-            <section class="card" onclick="flipCard(this, ${spider.card_id}, ${spider.toxicity_rating > 0})">
-                <img src="${spider.image_url}" alt="${spider.name}">
-            </section>
-            <section class="card cardAnswer" style="display: none; background-color: ${cardColor};">
-                <p class="card-details">
-                    <section class="cardAnswer-header">${spider.name}</section><br>
-                    <article style="margin-top: 15vh;font-size: 2rem;">${spider.description}<article>
-                </p>
-            </section>
-        `;
-    }
+    // Create promises for image loading
+    let promises = cards.map(spider => {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => resolve(img);
+            img.onerror = () => reject(new Error('Failed to load image'));
+            img.src = spider.image_url;
+            img.alt = spider.name;
 
-    updateNavigation();
+            const cardColor = spider.type_id == 1 ? 'red' : 'green'; // Determine color based on type_id property
+            img.cardHTML = `
+                <section class="card" onclick="flipCard(this, ${spider.card_id}, ${spider.toxicity_rating > 0})">
+                    <img src="${img.src}" alt="${img.alt}">
+                </section>
+                <section class="card cardAnswer" style="display: none; background-color: ${cardColor};">
+                    <p class="card-details">
+                        <section class="cardAnswer-header">${spider.name}</section><br>
+                        <article style="margin-top: 5vh;font-size: 3vh;">${spider.description}</article>
+                    </p>
+                </section>
+            `;
+        });
+    });
+
+    // Wait for all images to load
+    Promise.all(promises).then(images => {
+        timer.style.display = next.style.display = pick.style.display = 'block';
+        container.innerHTML = ''; // Clear loader
+        images.forEach(img => {
+            container.innerHTML += img.cardHTML;
+        });
+
+        startTimer();
+        updateNavigation();
+        if (button) {
+            button.disabled = false;
+        }
+    }).catch(error => {
+        console.error('An error occurred while loading images:', error);
+        container.innerHTML = '<div class="error">Error loading images.</div>';
+
+        if (button) {
+            button.disabled = false;
+        }
+    });
 }
+
 
 function showNextPair() {
     
@@ -203,8 +236,7 @@ function displayResult() {
 }
 
 function updateNavigation() {
-    const pageNumber = document.querySelector('.page-number');
-    pageNumber.textContent = `Round ${currentRound}`;
+    displayMessage("ROUND "+currentRound);
 }
 
 function flipCard(element, cardId, isVenomous) {
@@ -240,9 +272,13 @@ function flipCard(element, cardId, isVenomous) {
 }
 
 function displayMessage(text, isPositive) {
+    
+    const existingMessages = document.querySelectorAll('div.message');
+    existingMessages.forEach(msg => msg.remove());
+    
     const message = document.createElement('div');
     message.style.position = 'fixed';
-    message.style.top = '10%';
+    message.style.top = '5%';
     message.style.left = '0';
     message.style.width = '100%';
     message.style.textAlign = 'center';

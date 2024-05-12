@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
 <title>SpiderCards</title>
 <link rel="stylesheet" href="CSS/Play.css">
@@ -11,26 +12,17 @@
         <iframe src="nav.html" class="nave"></iframe>
     </section>
     <main>
-        <h2 class="animated-text">PICK YOUR BITE</h2>
-        
         <section id="timer-bar" class="timer-bar">
-            <button id="timer-display" class="timer-display">00:00</button>
+            <label id="timer-display" class="timer-display">00:00</label>
         </section>
-          
 
+        <h2 class="animated-text" id="animated-text">Pick the Friendly Spider!</h2>          
         <section class="card-container" id="spider-cards">
             <div id="loader" class="loader" style="display: none;"></div>
         </section>
         <section class="navigation">
             <button id="next" class="next round" onclick="showNextPair()" disabled>Next &raquo;</button>
         </section>        
-        <section class="round-number">
-            <span class="page-number"></span>
-        </section>
-       
     </main>
-    <footer>
-        <span class="help icon"></span>
-    </footer>
 </body>
 </html>

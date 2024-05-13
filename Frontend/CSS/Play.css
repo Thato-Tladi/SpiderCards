@@ -18,6 +18,45 @@ header {
     background-color: #fff;
 }
 
+h1 {
+    color: red;
+    font-size: 100px;
+}
+
+.profile {
+    cursor: pointer;
+}
+
+.profile-bubble {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    width: 200px;
+}
+
+.user-info {
+    font-weight: bold;
+}
+.profile-bubble::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid white;
+}
+
+
 main {
     text-align: center;
     position: relative;
@@ -69,7 +108,16 @@ main {
 }
 
 .round-number {
-    margin-left: 80%;
+    font-weight: bold;
+    color:rgb(174, 38, 38);
+    font-size: 20px;
+    position: absolute;
+    background-color:whitesmoke;
+    top: -25px; /* Adjust top position */
+    right: 98px; /* Adjust right position */
+    margin-bottom: 10px;
+    padding: 2px 8px;
+    border-radius: 5px;
 }
 
 a {
@@ -139,9 +187,6 @@ a {
 }
 
 
-
-
-
 button:disabled {
     cursor: default;
     background-color: #eee; /* Light grey when disabled */
@@ -179,8 +224,15 @@ button:enabled {
 }
 
 h1 {
+   
+
     color: rgb(174, 38, 38);
     font-family: Arial, sans-serif;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 60px;
+    font-size: 28px;
 }
 
 /* Base styles */
@@ -260,6 +312,35 @@ video {
 
 main{
     flex: 1;
+
+    padding: 20px;
+}
+
+.game-info {
+    margin-top: -100px;
+    top: 10px;
+    right: 50px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    color: #fff;
+  }
+  
+  .score span {
+    font-weight: bold;
+  } 
+  
+  .score {
+    background-color:whitesmoke;
+    color:rgb(174, 38, 38);
+    border-radius: 5px;
+    right: 120px;
+    margin-bottom: 300em;
+    padding: 2px 9px;
+    position: absolute;
+  }
+
     padding: 0.8rem;
     margin-top: -15vh;
 }
@@ -285,3 +366,4 @@ main{
         border-width: 2vw;
     }
 }
+

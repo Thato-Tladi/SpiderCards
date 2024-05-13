@@ -19,7 +19,11 @@ function updateLeaderboard() {
     .then(data => {
         // Clear current entries
         tbody.innerHTML = '';
- 
+
+        // Sort leaderboard data by total score
+        if (data.leaderboard) {
+            data.leaderboard.sort((a, b) => b.total_score - a.total_score); // Sort in descending order
+        } 
         // Populate leaderboard table
         if (data.leaderboard == null) {
             let row = tbody.insertRow();
@@ -42,7 +46,6 @@ function updateLeaderboard() {
         console.error('Error:', error);
     });
 }
- 
  
 // Call the function to update leaderboard when the page loads
 document.addEventListener('DOMContentLoaded', () => {

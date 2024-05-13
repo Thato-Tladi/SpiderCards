@@ -322,3 +322,4 @@ window.onload = function() {
     initializeDisplay();
     updateScoreDisplay(); // Initial score update
 }
+

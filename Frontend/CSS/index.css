@@ -88,7 +88,7 @@ th {
 h1 {
     color: rgb(174, 38, 38);
     font-family: Arial, sans-serif;
-    margin: 50px; 
+    margin: 3.125rem;;
     font-size: 3vw;
 }
 
@@ -121,7 +121,7 @@ h1 {
     height: 10%; /* Adjust height automatically based on content */
     display: block; /* Ensure it takes full width */
     overflow: hidden; /* Hide any content that overflows the container */
-    padding: 1px;
+    padding: 0.05em;
     min-height: 27vh;
   }
   

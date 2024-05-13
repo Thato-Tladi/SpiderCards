@@ -1,7 +1,6 @@
 function updateLeaderboard() {
     const tbody = document.querySelector('#leaderboard tbody');
     const bearerToken = localStorage.getItem('access_token');
- 
     // Fetch leaderboard data
     fetch('http://spidercards-app.eu-west-1.elasticbeanstalk.com/api/game/leaderboard', {
         method: 'GET',
@@ -17,8 +16,14 @@ function updateLeaderboard() {
         return response.json();
     })
     .then(data => {
-        // Clear current entries
+        // Clear current entries and remove loader
         tbody.innerHTML = '';
+        const leaderboard = document.getElementById('leaderboard');
+        const loader = document.getElementById('loader');
+        
+        loader.style.display = 'none';
+        leaderboard.style.display = 'block';
+
  
         // Populate leaderboard table
         if (data.leaderboard == null) {
@@ -30,21 +35,19 @@ function updateLeaderboard() {
         } else {
             data.leaderboard.forEach(player => {
                 let row = tbody.insertRow();
-                let userIdCell = row.insertCell(0); // Change variable name to userIdCell
+                let userIdCell = row.insertCell(0);
                 let scoreCell = row.insertCell(1);
-                userIdCell.textContent = player.user_id; // Change to user_id
-                scoreCell.textContent = player.total_score; // Keep total_score
+                userIdCell.textContent = player.username;
+                scoreCell.textContent = player.total_score;
             });
         }
     })
     .catch(error => {
-        // Display error message
         console.error('Error:', error);
+        tbody.innerHTML = '<div class="error">Error loading leaderboard.</div>';
     });
 }
- 
- 
-// Call the function to update leaderboard when the page loads
+
 document.addEventListener('DOMContentLoaded', () => {
     updateLeaderboard();
 });

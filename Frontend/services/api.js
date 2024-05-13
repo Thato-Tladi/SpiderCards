@@ -26,14 +26,12 @@ async function auth() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json(); // Parse JSON response
+        const data = await response.json();
         console.log("Server response:", data);
 
-        // Assuming the response JSON object contains a 'sessionId' key
         const sessionId = data.sessionId;
         console.log("Session ID:", sessionId);
 
-        // Store the sessionId in sessionStorage
         sessionStorage.setItem('sessionId', sessionId);
     } catch (error) {
         console.error('Error:', error);
@@ -53,7 +51,7 @@ async function getSessionCards() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json(); // Parse JSON response
+        const data = await response.json();
         console.log("Server response:", data);
     
         return data;
@@ -79,14 +77,14 @@ async function chooseCard(cardId) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json(); // Parse JSON response
+        const data = await response.json();
         console.log("Server response:", data);
 
-        // Assuming the response JSON object contains a 'sessionId' key
+
         const sessionId = data.sessionId;
         console.log("Session ID:", sessionId);
 
-        // Store the sessionId in sessionStorage
+
         sessionStorage.setItem('sessionId', sessionId);
     } catch (error) {
         console.error('Error:', error);

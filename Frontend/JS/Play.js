@@ -176,16 +176,19 @@ function showSpiders() {
 
             const cardColor = spider.type_id == 1 ? 'red' : 'green'; // Determine color based on type_id property
             img.cardHTML = `
-                <section class="card" onclick="flipCard(this, ${spider.card_id}, ${spider.toxicity_rating > 0})">
-                    <img src="${img.src}" alt="${img.alt}">
-                </section>
-                <section class="card cardAnswer" style="display: none; background-color: ${cardColor};">
-                    <p class="card-details">
-                        <section class="cardAnswer-header">${spider.name}</section><br>
-                        <article style="margin-top: 5vh;font-size: 3vh;">${spider.description}</article>
-                    </p>
-                </section>
-            `;
+            <section class="card" onclick="flipCard(this, ${spider.card_id}, ${spider.toxicity_rating > 0})">
+                <img src="${img.src}" alt="${img.alt}">
+            </section>
+            <section class="card cardAnswer" style="display: none; background-color: ${cardColor};">
+                <p class="card-details">
+                    <strong>Name:</strong> ${spider.name}<br>
+                    <strong>Scientific Name:</strong> ${spider.scientific_name}<br>
+                    <strong>Description:</strong> ${spider.description}<br>
+                    <strong>Habitat:</strong> ${spider.habitat}<br>
+                    <strong>Toxicity:</strong> ${spider.toxicity_rating}<br>
+                </p>
+            </section>
+        `;
         });
     });
 

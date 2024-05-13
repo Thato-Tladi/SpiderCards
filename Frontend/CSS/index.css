@@ -16,11 +16,11 @@ body, html {
     height: 90%;
     flex: 1;
     padding: 1px;
-    margin-top: -7vh;
+    margin-top: -15vh;
 }
 
 header h1 {
-    margin-top: 2vh;
+    margin-top: -2vh;
     font-size: 3vw; /* Responsive font size */
     text-align: center;
     justify-content: center;
@@ -35,18 +35,18 @@ main {
     background-color: red;
     border: none;
     padding: 1em 2em;
-    font-size: 1.5rem;
+    font-size: 3vh;
     color: white;
     cursor: pointer;
     border-radius: 0.5em;
     display: block; /* Allows for centering */
     margin: 0 auto; /* Center button in the container */
-    margin-top: 5vh;
+    margin-top: 1%;
 }
 
 #leaderboard {
     
-    margin-top: 9vh;
+    margin-top: 15vh;
     background:gainsboro; /* Semi-transparent background */
     border-radius: 0.5em;
     padding: 1em;
@@ -58,19 +58,19 @@ main {
 table {
     width: 100%;
     border-collapse: collapse;
-    background: transparent; /* Table background transparency */
+    background: transparent;
 }
 
 th, td {
     border: 1px solid #ffffff;
-    text-align: center; /* Center-align text in table cells */
-    padding: 0.5em; /* Spacing inside cells */
-    color: green; /* Green text for better readability and theme matching */
-    font-size: 1.2rem; /* Larger text for better visibility */
+    text-align: center;
+    padding: 0.5em;
+    color: green;
+    font-size: 3vh;
 }
 
 th {
-    color: black; /* Red color for header to differentiate and add to theme */
+    color: black;
 }
 
 .navbar {
@@ -88,15 +88,12 @@ th {
 h1 {
     color: rgb(174, 38, 38);
     font-family: Arial, sans-serif;
-    top: 0; 
-    left: 0; 
     margin: 50px; 
     font-size: 3vw;
 }
 
-
-@media (max-width: 600px) {
-    header h1 {
+@media (max-width: 800px) {
+    h1 {
         font-size: 1.5rem;
     }
 
@@ -106,7 +103,14 @@ h1 {
     }
 
     th, td {
+        font-size: 2vh;
         padding: 0.4em;
+    }
+}
+
+@media (max-width: 400px) {
+    th, td {
+        font-size: 1.5vh;
     }
 }
 
@@ -121,4 +125,26 @@ h1 {
     min-height: 27vh;
   }
   
- 
+  .loader {
+    border: 1.6vw solid #f3f3f3;
+    border-top: 1.6vw solid rgb(174, 38, 38);
+    border-radius: 50%;
+    width: 6vw;
+    height: 6vw;
+    animation: spin 2s linear infinite;
+    z-index: 1000;
+    margin-left: 50%;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 600px) {
+    .loader {
+        width: 20vw;
+        height: 20vw;
+        border-width: 2vw;
+    }
+} 

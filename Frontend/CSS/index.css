@@ -125,4 +125,26 @@ h1 {
     min-height: 27vh;
   }
   
- 
+  .loader {
+    border: 1.6vw solid #f3f3f3;
+    border-top: 1.6vw solid rgb(174, 38, 38);
+    border-radius: 50%;
+    width: 6vw;
+    height: 6vw;
+    animation: spin 2s linear infinite;
+    z-index: 1000;
+    margin-left: 50%;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 600px) {
+    .loader {
+        width: 20vw;
+        height: 20vw;
+        border-width: 2vw;
+    }
+} 

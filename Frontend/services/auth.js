@@ -41,28 +41,40 @@ document.addEventListener('DOMContentLoaded', function() {
       window.location.href = `https://${config.domain}/authorize?${params.toString()}`;
   }
 
-  async function startGame() {
-      console.log('Starting the game!');
-    // Assuming auth() returns a Promise
-    auth().then(() => {
-        // Redirect to spiderInit.html on successful authentication
-        // window.location.href = 'Frontend/lib/spiderInit.html';
-        gameInit().then(() => {window.location.href='Play.html';});
-        //getSessionCards();
-    }).catch((error) => {
-        console.error('Authentication failed:', error);
-    });
-  }
+async function startGame() {
+    console.log('Starting the game!');
+    try {
+        await auth();
+        await gameInit();
+        window.location.href = 'Play.html';
+    } catch (error) {
+        console.error('Error during game start:', error);
+        alert("Failed to start the game. Please try again.");
+    }
+}
 
-  async function handleAuthentication() {
-      const urlParams = new URLSearchParams(window.location.hash.substr(1));
-      const accessToken = urlParams.get('access_token');
-      if (accessToken) {
-          localStorage.setItem('access_token', accessToken);
-          window.location.hash = ''; 
-      }
-      updateButton();
-  }
+async function handleAuthentication() {
+    const urlParams = new URLSearchParams(window.location.hash.substr(1));
+    const accessToken = urlParams.get('access_token');
+    if (accessToken) {
+        localStorage.setItem('access_token', accessToken);
+        window.location.hash = '';
+        if (!window.location.search.includes('reloaded')) {
+            window.location.search += 'reloaded=true';
+            window.location.reload();
+        } else {
+            const authResponse = await auth();
+            if (authResponse.status.ok) {
+                const dataResponse = await authResponse.json()
+                sessionStorage.setItem("username", dataResponse.user.username);
+            }
+            updateButton();
+        }
+    } else {
+        updateButton();
+    }
+}
+
 
   handleAuthentication();
 });

@@ -37,19 +37,17 @@ function updateLeaderboard() {
                 let row = tbody.insertRow();
                 let userIdCell = row.insertCell(0);
                 let scoreCell = row.insertCell(1);
-                userIdCell.textContent = player.user_id;
+                userIdCell.textContent = player.username;
                 scoreCell.textContent = player.total_score;
             });
         }
     })
     .catch(error => {
-        // Display error message
         console.error('Error:', error);
         tbody.innerHTML = '<div class="error">Error loading leaderboard.</div>';
     });
 }
 
-// Call the function to update leaderboard when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     updateLeaderboard();
 });

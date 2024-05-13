@@ -50,8 +50,8 @@ const endGameSession = async (req, res) => {
 
 const getLeaderboard = async (req, res) => {
   try {
-    const limit = req.query.limit || 10;
-    const leaderboard = await gameService.getLeaderboard(parseInt(limit, 10));
+    const limit = 5;//req.query.limit || 10;
+    const leaderboard = await gameService.getLeaderboard(parseInt(limit, 5));
 
     res.json({ leaderboard });
   } catch (error) {

@@ -1,4 +1,4 @@
-const { Card, GameSession, UserStats, sequelize } = require('../models');
+const { Card, GameSession, UserStats, User, sequelize } = require('../models');
 
 const startGameSession = async (user_id) => {
   return await GameSession.create({
@@ -45,13 +45,34 @@ const recordUserGameHistory = async (userId, score) => {
   }
 };
 
-const getLeaderboard = async (limit = 10) => {
-  return await UserStats.findAll({
-    attributes: ['user_id', 'total_score'],
-    order: [['total_score', 'DESC']],
-    limit
-  });
+const getLeaderboard = async (limit = 5) => {
+  try {
+    const results = await UserStats.findAll({
+      attributes: ['user_id', 'total_score', 'total_games_played'],
+      order: [['total_score', 'DESC']],
+      limit,
+      include: [
+        {
+          model: User,
+          attributes: ['username']
+        },
+      ],
+    });
+
+    const flattenedResults = results.map(result => ({
+      user_id: result.user_id,
+      total_score: result.total_score,
+      total_games_played: result.total_games_played,
+      username: result.User.username
+    }));
+
+    return flattenedResults;
+  } catch (error) {
+    console.error('Error fetching leaderboard:', error);
+    throw error;
+  }
 };
+
 
 
 module.exports = {

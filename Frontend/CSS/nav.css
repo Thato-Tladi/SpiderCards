@@ -1,56 +1,58 @@
+/* styles.css */
+
 .dropdown-menu {
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 120px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  padding: 2;
-  z-index: 1;
+  min-width: 6.5rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.2);
+  padding: 0.1rem;
+  z-index: 100000;
   display: none;
-  border-radius: 8px;
-  right: 8px;
-  max-height: 300px;
-  top: 2px; /* Adjust the top position */
+  border-radius: 0.3rem;
+  right: calc(1.1rem + 1.4vw); /* Adjusted right position */
+  max-height: 18.75rem;
+  top: calc(1vw + (-1rem)); /* Adjusted top position */
 }
- 
- 
+
 .dropdown-menu ul {
   list-style: none;
   padding: 0;
   margin: 0;
   text-align: center; /* Center align text */
 }
- 
+
 .dropdown-menu ul li {
-  padding:  8px 0;
+  padding: 0.5rem 0; /* Equivalent to 8px */
   cursor: pointer;
   border-bottom: 1px solid #ccc;
 }
- 
+
 .dropdown-menu ul li button {
   all: unset;
   cursor: pointer;
   color: blue;
 }
- 
+
 .profile-icon:hover + .dropdown-menu,
 .dropdown-menu:hover {
-    display: block; /* Show the dropdown menu on hover */
+  display: block; /* Show the dropdown menu on hover */
 }
- 
+
 .navigation.dropdown-open {
   overflow-y: hidden; /* Hide scrollbar when dropdown is active */
 }
- 
- h1 {
+
+h1 {
   color: rgb(174, 38, 38);
   font-family: Arial, sans-serif;
+  font-weight: bold; 
   position: fixed;
-  top: 0;
-  left: 0;
-  margin: 60px;
+  top: 4vw; /* Adjusted top position */
+  left: 1vw; /* Aligned with the logo */
   font-size: 2vw;
- }
- 
+  z-index: 99997;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -58,44 +60,47 @@
   padding: 1rem 3rem;
   border: none;
 }
- 
-.logo,.profile-icon {
-  height: 2.5rem;
+
+.logo, .profile-icon {
+  height: 5vw; /* Responsive height */
 }
- 
+
 .profile-icon {
   cursor: pointer;
   position: fixed;
-  bottom: 1x;
-  right: 20px;
+  top: 1vw; /* Adjusted to top position */
+  right: 1.25rem; /* Equivalent to 20px */
 }
+
 .logo {
   cursor: pointer;
   position: fixed;
+  top: 1vw; /* Adjusted to top position */
+  left: 1vw; /* Adjusted to left position */
 }
- 
+
 img:hover {
   transform: scale(1.1);
   transition: transform 0.2s ease;
 }
- 
+
 .profile-menu {
   position: relative;
   display: inline-block;
-  }
+}
+
 img:hover {
-    transform: scale(1.1);
-    transition: transform 0.2s ease;
-   }  
- 
-   .navigation{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 30%; /* Full height of the viewport */
-    background-color: #333;
-    color: white;
-    font-size: 2vw;
-   }  
- 
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+}
+
+.navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30vh; /* Changed to viewport height */
+  background-color: #333;
+  color: white;
+  font-size: 2vw;
+}

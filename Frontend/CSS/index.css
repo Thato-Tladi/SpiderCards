@@ -1,9 +1,8 @@
-
 body, html {
     margin: 0;
     padding: 0;
-    background-image: url('../assets/background.png');
-    background-size: 100% auto;
+    background-image: url('../assets/home.jpg');
+    background-size: 100% 100%; /* Adjusted to cover fully */
     background-position: center;
     min-height: 100vh;
 }
@@ -34,26 +33,27 @@ main {
 #actionButton {
     background-color: red;
     border: none;
-    padding: 1em 2em;
-    font-size: 3vh;
+    padding: 1vw 2vw; /* Adjusted padding using vw units */
+    font-size: 2vw; /* Adjusted font-size using vw units */
     color: white;
     cursor: pointer;
     border-radius: 0.5em;
     display: block; /* Allows for centering */
     margin: 0 auto; /* Center button in the container */
-    margin-top: 1%;
+    margin-top: 2%; /* Adjusted margin-top using percentage */
 }
 
+
 #leaderboard {
-    
-    margin-top: 15vh;
-    background:gainsboro; /* Semi-transparent background */
+    margin-top: 1vh; /* Adjusted margin */
+    background: gainsboro; /* Semi-transparent background */
     border-radius: 0.5em;
     padding: 1em;
     width: 90%;
-    color: Black; /* Ensuring text is white */
+    color: black; /* Ensuring text is black */
     text-align: center; /* Center-align text in table cells */
 }
+
 
 table {
     width: 100%;
@@ -88,8 +88,13 @@ th {
 h1 {
     color: rgb(174, 38, 38);
     font-family: Arial, sans-serif;
-    margin: 50px; 
+    margin: 3.125rem;
     font-size: 3vw;
+    font-weight: bold; /* Make the h1 bold */
+}
+
+h2 {
+    font-size: 3vw; /* Responsive font size */
 }
 
 @media (max-width: 800px) {
@@ -121,8 +126,11 @@ h1 {
     height: 10%; /* Adjust height automatically based on content */
     display: block; /* Ensure it takes full width */
     overflow: hidden; /* Hide any content that overflows the container */
-    padding: 1px;
+    padding: 0.05em;
     min-height: 27vh;
+<<<<<<< newbackground
+}
+=======
   }
   
   .loader {
@@ -148,3 +156,4 @@ h1 {
         border-width: 2vw;
     }
 } 
+>>>>>>> pre-main

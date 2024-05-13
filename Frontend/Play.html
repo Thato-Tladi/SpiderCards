@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
 <title>SpiderCards</title>
 <link rel="stylesheet" href="CSS/Play.css">
@@ -11,23 +12,12 @@
         <iframe src="nav.html" class="nave"></iframe>
     </section>
     <main>
-        <h2 class="animated-text">Pick a non-venomous spider</h2>
-        <section id="timer-bar" class="timer-bar"></section>
         <section class="card-container" id="spider-cards">
+            <div id="loader" class="loader" style="display: none;"></div>
         </section>
         <section class="navigation">
-            <button class="next" id="next" onclick="showNextPair()"><a href="#" class="next round disabled" onclick="return false;">Next &raquo;</a>
-            </button>
-        </section>
-        <section class="round-number">Round: 1</section>
-            <span class="page-number"></span>
-        </section>
-        <section class="game-info">
-            <section class="score"><span id="score"></span></section>
-        </section>       
+            <button id="next" class="next round" onclick="showNextPair()" disabled>Next &raquo;</button>
+        </section>        
     </main>
-    <footer>
-        <span class="help icon"></span>
-    </footer>
 </body>
 </html>

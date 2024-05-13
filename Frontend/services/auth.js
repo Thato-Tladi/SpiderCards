@@ -50,19 +50,16 @@ document.addEventListener('DOMContentLoaded', function() {
         gameInit().then(() => {window.location.href='Play.html';});
         //getSessionCards();
     }).catch((error) => {
-        // Handle any errors that occur during authentication
         console.error('Authentication failed:', error);
     });
   }
 
-  function handleAuthentication() {
+  async function handleAuthentication() {
       const urlParams = new URLSearchParams(window.location.hash.substr(1));
-      console.log("I'm  your problem "+window.location.hash.substr(1));
       const accessToken = urlParams.get('access_token');
       if (accessToken) {
-        console.log("Token is "+accessToken);
           localStorage.setItem('access_token', accessToken);
-          window.location.hash = '';  // Clear URL after storing the token
+          window.location.hash = ''; 
       }
       updateButton();
   }

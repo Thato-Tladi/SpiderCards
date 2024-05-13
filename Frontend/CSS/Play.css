@@ -56,16 +56,16 @@ h1 {
     border-bottom: 10px solid white;
 }
 
+
 main {
     text-align: center;
     position: relative;
 }
 
-.animated-text {
+.animated-text,.page-number {
     font-style: italic;
     color: rgb(174, 38, 38);
   }
-  
 
 .card-container {
     display: flex;
@@ -77,7 +77,6 @@ main {
 .card{
     width: 100%;
     margin-top:5%;
-    min-height: 50vh;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
 }
@@ -97,7 +96,7 @@ main {
 .cardAnswer {
     width: 100%;
     margin-top:5%;
-    min-height: 50vh;
+
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
     background-color: green;
@@ -105,7 +104,7 @@ main {
     opacity: 0;
   }
   .cardAnswer-header {
-    font-size: 5vw;
+    font-size: 4vh;
 }
 
 .round-number {
@@ -141,44 +140,51 @@ a {
     border-radius: 50%;
   }
 
-  .next.round {
+/* Styles for the enabled state of the button */
+.next.round {
     padding: 8px 15px;
     background-color: #4CAF50; /* Lighter shade for the enabled state */
     color: white;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+    font-size: 2vw;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    display: inline-block; /* Ensures proper spacing and positioning */
+    margin-top: 2vh;
 }
 
-.next.round.disabled {
+/* Styles for the disabled state of the button */
+.next.round[disabled] {
     background-color: #2a4d32; /* Darker shade for the disabled state */
-    cursor: default;
-    opacity: 0.5;
-    pointer-events: none; /* Prevents clicking on the link */
+    cursor: not-allowed; /* Changes cursor to indicate non-interactivity */
+    opacity: 0.5; /* Dulls the button to suggest it's inactive */
+    pointer-events: none; /* Prevents all mouse events on the button */
 }
+
 
 
 .timer-bar {
-    position: absolute;
-    left: 10%;
-    min-height: 1vh;
-    width: 0%;
-    background-color: green;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.timer-display {
+    padding: 10px;
+    color: white;
+    font-size: 1vw;
+    text-align: center;
+    background-color: green; /* Start with green background */
+    border: none;
+    cursor: pointer;
     transition: background-color 0.3s ease-in-out;
- 
 }
 
-
-
-.timer-bar.red {
-    background-color: red; /* Change to red in the last 10 seconds */
+.timer-display.red {
+    background-color: red; /* Changes to red when time is low */
 }
-
 
 
 button:disabled {
@@ -195,7 +201,7 @@ button:enabled {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    margin-top: -2vh;
 }
 
 .navigation button {
@@ -249,60 +255,64 @@ header, .navbar {
     background-color: #fff;
 }
 
-/* Responsive text sizes */
 h1 {
-    font-size: 3vw; /* Adjust font size based on the width of the viewport */
+    font-size: 3vw;
     color: red;
 }
 h2 {
-    font-size: 2vw; /* Adjust font size based on the width of the viewport */
+    font-size: 2vw;
 }
 
-/* Responsive profile and navigation elements */
 .profile, .navigation button {
     cursor: pointer;
-    font-size: calc(10px + 1vw); /* Make font size responsive */
+    font-size: calc(10px + 1vw);
 }
 
-/* Adjustments for the card containers */
 .card-container {
     display: flex;
-    flex-wrap: wrap; /* Allows cards to wrap on smaller screens */
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 2%; /* Smaller gap for better spacing on smaller screens */
-    padding: 2% 0;
 }
 
 .card, .cardAnswer {
-    flex: 1 1 45%; /* Each card takes up roughly half the width on larger screens */
+    flex: 1 1 45%;
     margin-top: 2%;
-    height: 40vh; /* Smaller minimum height for smaller screens */
+    height: 50vh;
+    max-width: 50vh;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
-    background-color: inherit; /* Ensure cardAnswer inherits the background */
+    background-color: inherit;
+}
+
+video {
+    width: 100%;      /* Full width of its container */
+    height: 50vh;     /* 50% of the viewport height */
+    display: block;   /* Ensures it doesn't inherit any inline styling */
+    margin: 0 auto;   /* Centers the video if the container is wider */
 }
 
 
-
-@media (max-width: 600px) {
+@media (max-width: 800px) {
     .card, .cardAnswer {
-        flex: 1 1 90%; /* On smaller screens, make each card take nearly full width */
+        flex: 1 1 90%;
+        height:30vh;
     }
 }
 
 .nave {
     border: none;
-    width: 95%; /* Set width to 80% of the page */
-    margin: 0 auto; /* Center the nave horizontally */
-    height: 10%; /* Adjust height automatically based on content */
-    display: block; /* Ensure it takes full width */
-    overflow: hidden; /* Hide any content that overflows the container */
+    width: 95%;
+    margin: 0 auto;
+    height: 10%;
+    display: block;
+    overflow: hidden;
     padding: 1px;
     min-height: 27vh;
   }
 
 main{
     flex: 1;
+
     padding: 20px;
 }
 
@@ -330,3 +340,30 @@ main{
     padding: 2px 9px;
     position: absolute;
   }
+
+    padding: 0.8rem;
+    margin-top: -15vh;
+}
+.loader {
+    border: 1.6vw solid #f3f3f3; /* Light gray for the inactive part of the loader */
+    border-top: 1.6vw solid rgb(174, 38, 38); /* Red for the active part of the loader */
+    border-radius: 50%;
+    width: 12vw;
+    height: 12vw;
+    animation: spin 2s linear infinite;
+    z-index: 1000;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 600px) {
+    .loader {
+        width: 20vw;
+        height: 20vw;
+        border-width: 2vw;
+    }
+}
+

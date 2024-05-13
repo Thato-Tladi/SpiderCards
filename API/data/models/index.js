@@ -16,4 +16,17 @@ const Card = require('./Card')(sequelize);
 const GameSession = require('./GameSession')(sequelize);
 const UserStats = require('./UserStats')(sequelize);
 
+const setupAssociations = () => {
+    const models = { User, CardType, Card, GameSession, UserStats };
+    Object.keys(models).forEach(key => {
+      if ('associate' in models[key]) {
+        models[key].associate(models);
+      }
+    });
+  };
+
+
+  setupAssociations();
+
+
 module.exports = { sequelize, User, CardType, Card, GameSession, UserStats};

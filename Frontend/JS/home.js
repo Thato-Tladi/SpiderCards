@@ -19,30 +19,25 @@ function updateLeaderboard() {
     .then(data => {
         // Clear current entries
         tbody.innerHTML = '';
+
+        // Sort leaderboard data in descending order
+        const sortedLeaderboard = data.leaderboard.sort((a, b) => b.total_score - a.total_score);
  
-        // Populate leaderboard table
-        if (data.leaderboard == null) {
+        // Populate leaderboard table with top 5 scores
+        const top5 = sortedLeaderboard.slice(0, 5);
+        top5.forEach(player => {
             let row = tbody.insertRow();
-            let nameCell = row.insertCell(0);
+            let userIdCell = row.insertCell(0);
             let scoreCell = row.insertCell(1);
-            nameCell.textContent = '0';
-            scoreCell.textContent = '0';
-        } else {
-            data.leaderboard.forEach(player => {
-                let row = tbody.insertRow();
-                let userIdCell = row.insertCell(0); // Change variable name to userIdCell
-                let scoreCell = row.insertCell(1);
-                userIdCell.textContent = player.user_id; // Change to user_id
-                scoreCell.textContent = player.total_score; // Keep total_score
-            });
-        }
+            userIdCell.textContent = player.user_id;
+            scoreCell.textContent = player.total_score;
+        });
     })
     .catch(error => {
         // Display error message
         console.error('Error:', error);
     });
 }
- 
  
 // Call the function to update leaderboard when the page loads
 document.addEventListener('DOMContentLoaded', () => {

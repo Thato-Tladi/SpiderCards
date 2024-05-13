@@ -1,15 +1,17 @@
+/* styles.css */
+
 .dropdown-menu {
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 7.5rem; /* Equivalent to 120px */
-  box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.2); /* Equivalent to 0px 8px 16px 0px rgba(0,0,0,0.2) */
-  padding: 0.125rem; /* Equivalent to 2px */
-  z-index: 1;
+  min-width: 6.5rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.2);
+  padding: 0.1rem;
+  z-index: 100000;
   display: none;
-  border-radius: 0.5rem; /* Equivalent to 8px */
-  right: 0.5rem; /* Equivalent to 8px */
-  max-height: 18.75rem; /* Equivalent to 300px */
-  top: 0.125rem; /* Equivalent to 2px */
+  border-radius: 0.3rem;
+  right: calc(1.1rem + 1.4vw); /* Adjusted right position */
+  max-height: 18.75rem;
+  top: calc(1vw + (-1rem)); /* Adjusted top position */
 }
 
 .dropdown-menu ul {
@@ -43,11 +45,12 @@
 h1 {
   color: rgb(174, 38, 38);
   font-family: Arial, sans-serif;
+  font-weight: bold; 
   position: fixed;
-  top: 0;
-  left: 0;
-  margin: 4rem; /* Equivalent to 60px */
+  top: 4vw; /* Adjusted top position */
+  left: 1vw; /* Aligned with the logo */
   font-size: 2vw;
+  z-index: 99997;
 }
 
 .navbar {
@@ -59,19 +62,21 @@ h1 {
 }
 
 .logo, .profile-icon {
-  height: 2.5rem;
+  height: 5vw; /* Responsive height */
 }
 
 .profile-icon {
   cursor: pointer;
   position: fixed;
-  top: 1rem; /* Adjusted to top position */
+  top: 1vw; /* Adjusted to top position */
   right: 1.25rem; /* Equivalent to 20px */
 }
 
 .logo {
   cursor: pointer;
   position: fixed;
+  top: 1vw; /* Adjusted to top position */
+  left: 1vw; /* Adjusted to left position */
 }
 
 img:hover {
@@ -94,7 +99,7 @@ img:hover {
   top: 0;
   left: 0;
   width: 100%;
-  height: 30%; /* Full height of the viewport */
+  height: 30vh; /* Changed to viewport height */
   background-color: #333;
   color: white;
   font-size: 2vw;

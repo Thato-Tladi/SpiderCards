@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  return sequelize.define(
+  const User = sequelize.define(
     'User',
     {
       user_id: {
@@ -33,4 +33,12 @@ module.exports = (sequelize) => {
       timestamps: false,
     }
   );
+
+  User.associate = (models) => {
+    User.hasOne(models.UserStats, {
+      foreignKey: 'user_id',
+    });
+  };
+
+  return User;
 };

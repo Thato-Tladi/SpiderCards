@@ -1,7 +1,6 @@
 function updateLeaderboard() {
     const tbody = document.querySelector('#leaderboard tbody');
     const bearerToken = localStorage.getItem('access_token');
- 
     // Fetch leaderboard data
     fetch('http://spidercards-app.eu-west-1.elasticbeanstalk.com/api/game/leaderboard', {
         method: 'GET',
@@ -17,11 +16,20 @@ function updateLeaderboard() {
         return response.json();
     })
     .then(data => {
-        // Clear current entries
+        // Clear current entries and remove loader
         tbody.innerHTML = '';
+<<<<<<< newbackground
 
         // Sort leaderboard data in descending order
         const sortedLeaderboard = data.leaderboard.sort((a, b) => b.total_score - a.total_score);
+=======
+        const leaderboard = document.getElementById('leaderboard');
+        const loader = document.getElementById('loader');
+        
+        loader.style.display = 'none';
+        leaderboard.style.display = 'block';
+
+>>>>>>> pre-main
  
         // Populate leaderboard table with top 5 scores
         const top5 = sortedLeaderboard.slice(0, 5);
@@ -29,17 +37,35 @@ function updateLeaderboard() {
             let row = tbody.insertRow();
             let userIdCell = row.insertCell(0);
             let scoreCell = row.insertCell(1);
+<<<<<<< newbackground
             userIdCell.textContent = player.user_id;
             scoreCell.textContent = player.total_score;
         });
+=======
+            nameCell.textContent = '0';
+            scoreCell.textContent = '0';
+        } else {
+            data.leaderboard.forEach(player => {
+                let row = tbody.insertRow();
+                let userIdCell = row.insertCell(0);
+                let scoreCell = row.insertCell(1);
+                userIdCell.textContent = player.username;
+                scoreCell.textContent = player.total_score;
+            });
+        }
+>>>>>>> pre-main
     })
     .catch(error => {
-        // Display error message
         console.error('Error:', error);
+        tbody.innerHTML = '<div class="error">Error loading leaderboard.</div>';
     });
 }
+<<<<<<< newbackground
  
 // Call the function to update leaderboard when the page loads
+=======
+
+>>>>>>> pre-main
 document.addEventListener('DOMContentLoaded', () => {
     updateLeaderboard();
 });
